@@ -9,300 +9,474 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
-    --primary: #1f2937;
-    --accent: #2563eb;
-    --bg: #f8fafc;
-    --card: #ffffff;
+:root{
+    --dark:#0f172a;
+    --primary:#1f2937;
+    --accent:#1d4ed8;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --border:#e5e7eb;
 }
 
-* {
-    box-sizing: border-box;
-    scroll-behavior: smooth;
+*{
+    box-sizing:border-box;
+    scroll-behavior:smooth;
 }
 
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--primary);
+body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    color:var(--primary);
 }
 
-/* ===== Layout ===== */
-.wrapper {
-    display: flex;
-    min-height: 100vh;
+/* ================= Layout ================= */
+.wrapper{
+    display:flex;
+    min-height:100vh;
 }
 
-/* ===== Sidebar ===== */
-.sidebar {
-    width: 280px;
-    background: #111827;
-    color: #fff;
-    padding: 25px;
-    position: fixed;
-    height: 100vh;
-    overflow-y: auto;
+/* ================= Sidebar ================= */
+.sidebar{
+    width:320px;
+    background:var(--dark);
+    color:#fff;
+    padding:35px 28px;
+    position:fixed;
+    height:100vh;
+    overflow-y:auto;
 }
 
-.sidebar h2 {
-    font-size: 18px;
-    margin-bottom: 20px;
-    text-align: center;
+.sidebar h2{
+    text-align:center;
+    font-size:19px;
+    margin-bottom:30px;
+    letter-spacing:1px;
 }
 
-.sidebar a {
-    display: block;
-    color: #d1d5db;
-    text-decoration: none;
-    padding: 8px 0;
-    font-size: 14px;
+/* Dropdown Menu */
+.menu-group{
+    margin-bottom:18px;
 }
 
-.sidebar a:hover {
-    color: #fff;
+.menu-group label{
+    display:block;
+    font-size:14px;
+    font-weight:600;
+    color:#e5e7eb;
+    cursor:pointer;
+    padding:8px 0;
 }
 
-/* ===== Main Content ===== */
-.content {
-    margin-left: 280px;
-    padding: 50px;
-    max-width: 1100px;
+.menu-group input{
+    display:none;
 }
 
-/* ===== Cards ===== */
-.card {
-    background: var(--card);
-    padding: 50px;
-    border-radius: 14px;
-    margin-bottom: 50px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+.submenu{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .4s ease;
+    padding-left:12px;
 }
 
-/* ===== Typography ===== */
-h1 {
-    font-family: 'Merriweather', serif;
-    font-size: 42px;
-    text-align: center;
+.menu-group input:checked + .submenu{
+    max-height:800px;
 }
 
-h2 {
-    font-family: 'Merriweather', serif;
-    border-bottom: 2px solid #e5e7eb;
-    padding-bottom: 10px;
-    margin-top: 40px;
+.submenu a{
+    display:block;
+    font-size:13px;
+    color:#c7d2fe;
+    text-decoration:none;
+    padding:6px 0;
 }
 
-h3 {
-    margin-top: 25px;
+.submenu a:hover{
+    color:#ffffff;
 }
 
-p {
-    line-height: 1.8;
-    text-align: justify;
+/* ================= Content ================= */
+.content{
+    margin-left:320px;
+    padding:65px;
+    max-width:1200px;
 }
 
-/* ===== Cover ===== */
-.cover {
-    text-align: center;
+/* ================= Cards ================= */
+.card{
+    background:var(--card);
+    padding:60px;
+    border-radius:18px;
+    margin-bottom:70px;
+    box-shadow:0 15px 40px rgba(0,0,0,.06);
 }
 
-.cover h1 {
-    margin-bottom: 10px;
+/* ================= Typography ================= */
+h1,h2{
+    font-family:'Merriweather',serif;
 }
 
-.cover p {
-    text-align: center;
+h1{
+    font-size:44px;
+    text-align:center;
+    margin-bottom:10px;
 }
 
-/* ===== Images ===== */
-.image-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-    margin-top: 15px;
+h2{
+    font-size:28px;
+    border-bottom:2px solid var(--border);
+    padding-bottom:12px;
+    margin-bottom:30px;
 }
 
-.image-grid img {
-    width: 100%;
-    border-radius: 10px;
+h3{
+    margin-top:35px;
+    font-size:20px;
 }
 
-/* ===== Footer ===== */
-footer {
-    text-align: center;
-    margin-top: 80px;
-    font-size: 14px;
-    color: #6b7280;
+h4{
+    margin-top:25px;
+    font-size:16px;
+    font-weight:600;
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 900px) {
-    .sidebar {
-        display: none;
-    }
-    .content {
-        margin-left: 0;
-        padding: 20px;
-    }
+p,li{
+    line-height:1.9;
+    text-align:justify;
+    font-size:15px;
+}
+
+ul{
+    padding-left:20px;
+}
+
+/* ================= Cover ================= */
+.cover{
+    text-align:center;
+}
+
+.cover p{
+    text-align:center;
+    margin:12px 0;
+}
+
+/* ================= Image Grids ================= */
+.image-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+    margin-top:20px;
+}
+
+.image-grid img{
+    width:100%;
+    border-radius:14px;
+    box-shadow:0 8px 20px rgba(0,0,0,.1);
+}
+
+/* ================= Appendix ================= */
+.appendix-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.appendix-card{
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px;
+    background:#fff;
+}
+
+.appendix-card img{
+    width:100%;
+    border-radius:12px;
+    margin-bottom:12px;
+}
+
+.appendix-card span{
+    font-size:14px;
+    font-weight:600;
+}
+
+/* ================= Footer ================= */
+footer{
+    text-align:center;
+    font-size:14px;
+    color:#6b7280;
+    margin:90px 0 40px;
+}
+
+/* ================= Responsive ================= */
+@media(max-width:900px){
+    .sidebar{display:none}
+    .content{margin-left:0;padding:30px}
 }
 </style>
 </head>
 
 <body>
-
 <div class="wrapper">
 
-<!-- ===== SIDEBAR ===== -->
+<!-- ================= SIDEBAR ================= -->
 <nav class="sidebar">
-    <h2>Practicum Report</h2>
-    <a href="#cover">Cover Page</a>
-    <a href="#intro">I. Introduction</a>
-    <a href="#org">II. Organization Profile</a>
-    <a href="#training">III. Training / Project</a>
-    <a href="#obs">IV. Observations</a>
-    <a href="#anec">V. Anecdotal Reports</a>
-    <a href="#appendix">VI. Appendices</a>
+<h2>Practicum Report</h2>
+
+<div class="menu-group">
+<label>Introduction</label>
+<input type="checkbox" checked>
+<div class="submenu">
+<a href="#rationale">Rationale</a>
+<a href="#expectations">Work / Training Expectations</a>
+</div>
+</div>
+
+<div class="menu-group">
+<label>Organization Profile</label>
+<input type="checkbox">
+<div class="submenu">
+<a href="#history">History & Mission</a>
+<a href="#nature">Nature of Business</a>
+<a href="#orgchart">Organizational Chart</a>
+<a href="#contact">Contact & Vicinity Map</a>
+<a href="#orgimages">Organization Images</a>
+</div>
+</div>
+
+<div class="menu-group">
+<label>Training / Project Profile</label>
+<input type="checkbox">
+<div class="submenu">
+<a href="#trainingdesc">Description</a>
+<a href="#trainingnature">Nature of Training</a>
+<a href="#milestones">Milestones</a>
+</div>
+</div>
+
+<div class="menu-group">
+<label>Observations</label>
+<input type="checkbox">
+<div class="submenu">
+<a href="#advantages">Competitive Advantages</a>
+<a href="#overall">Overall Observation</a>
+</div>
+</div>
+
+<div class="menu-group">
+<label>Anecdotal Reports</label>
+<input type="checkbox">
+<div class="submenu">
+<a href="#daily">Daily Reports</a>
+<a href="#weekly">Weekly Reports</a>
+<a href="#monthly">Monthly Reports</a>
+<a href="#tasks">Job Description</a>
+<a href="#problems">Problems Encountered</a>
+<a href="#practices">Salient Practices</a>
+<a href="#relevance">Relevance</a>
+<a href="#summary">Summary</a>
+</div>
+</div>
+
+<div class="menu-group">
+<label>Appendices</label>
+<input type="checkbox">
+<div class="submenu">
+<a href="#appendices">All Appendices</a>
+</div>
+</div>
 </nav>
 
-<!-- ===== CONTENT ===== -->
+<!-- ================= CONTENT ================= -->
 <main class="content">
 
 <!-- COVER -->
-<section class="card cover" id="cover">
-    <h1>PRACTICUM REPORT</h1>
-    <p>(300 Hours)</p>
-
-    <p>
-        A Portfolio Presented to the Faculty of the<br>
-        <strong>College of Information Technology</strong><br>
-        Southville International School and Colleges
-    </p>
-
-    <p>
-        In Partial Fulfillment of the Requirements<br>
-        for the Degree of<br>
-        <strong>Bachelor of Science in Information Technology</strong>
-    </p>
-
-    <p><strong>Delos Reyes, Roel S.</strong></p>
-
-    <p>
-        Submitted to:<br>
-        <strong>Dr. Aris E. Ignacio</strong>
-    </p>
-
-    <p><strong>November 2025</strong></p>
+<section class="card cover">
+<h1>PRACTICUM REPORT</h1>
+<p>(300 Hours)</p>
+<p>A Portfolio Presented to the Faculty of the</p>
+<p><strong>College of Information Technology</strong></p>
+<p>Southville International School and Colleges</p>
+<p>In Partial Fulfillment of the Requirements for the Degree of</p>
+<p><strong>Bachelor of Science in Information Technology</strong></p>
+<p><strong>Delos Reyes, Roel S.</strong></p>
+<p>Submitted to: <strong>Dr. Aris E. Ignacio</strong></p>
+<p>November 2025</p>
 </section>
 
 <!-- INTRODUCTION -->
-<section class="card" id="intro">
-    <h2>I. Introduction</h2>
+<section class="card">
+<h2>I. Introduction</h2>
 
-    <h3>Rationale</h3>
-    <p>
-        On-the-Job Training provides real-world exposure for students to explore
-        professional environments, understand workplace culture, and apply
-        academic knowledge in real scenarios.
-    </p>
+<h3 id="rationale">A. Rationale</h3>
+<p>
+The On-the-Job Training (OJT) program serves as a bridge between academic
+learning and professional practice. It allows students to apply theoretical
+knowledge acquired in the classroom to actual workplace situations.
+</p>
 
-    <h3>Work / Training / Project Expectations</h3>
-    <p>
-        The practicum aims to develop technical competence, professional behavior,
-        and practical IT skills relevant to industry standards.
-    </p>
+<h3 id="expectations">B. Work / Training / Project Expectations</h3>
+<p>
+The practicum is expected to develop technical competence, professional
+discipline, teamwork, communication skills, and adaptability to real-world
+information technology environments.
+</p>
 </section>
 
-<!-- ORGANIZATION -->
-<section class="card" id="org">
-    <h2>II. Organization Profile</h2>
+<!-- ORGANIZATION PROFILE -->
+<section class="card">
+<h2>II. Organization Profile</h2>
 
-    <h3>Background</h3>
-    <p>
-        Southville International School Affiliated with Foreign Universities (SISFU)
-        is the first transnational university in the Philippines, delivering
-        globally competitive education.
-    </p>
+<h3 id="history">A. Organization History and Background</h3>
+<p>
+Southville International School Affiliated with Foreign Universities (SISFU)
+is the first transnational university in the Philippines, offering globally
+competitive education through partnerships with international institutions.
+</p>
 
-    <h3>Nature of Business</h3>
-    <p>
-        Higher education institution offering international undergraduate and
-        graduate programs.
-    </p>
+<h3 id="nature">B. Nature of Business</h3>
+<p>
+The institution operates as a higher education provider delivering undergraduate
+and graduate programs with international accreditation.
+</p>
 
-    <h3>Organization Images</h3>
-    <div class="image-grid">
-        <img src="images/practicum1.jpg">
-        <img src="images/practicum2.jpg">
-        <img src="images/practicum3.jpg">
-    </div>
+<h3 id="orgchart">C. Organizational Chart</h3>
+<div class="image-grid">
+<img src="images/orgchart.jpg" alt="">
+</div>
+
+<h3 id="contact">D. Contact Information and Vicinity Map</h3>
+<p>
+Southville International School and Colleges<br>
+Las Piñas City, Philippines
+</p>
+
+<h3 id="orgimages">E. Organization Images</h3>
+<div class="image-grid">
+<img src="images/practicum1.jpg">
+<img src="images/practicum2.jpg">
+<img src="images/practicum3.jpg">
+</div>
 </section>
 
-<!-- TRAINING -->
-<section class="card" id="training">
-    <h2>III. Training / Project Profile</h2>
+<!-- TRAINING PROFILE -->
+<section class="card">
+<h2>III. Training / Project Profile</h2>
 
-    <h3>Description</h3>
-    <p>
-        The practicum involved hands-on participation in IT support, documentation,
-        and system-related tasks.
-    </p>
+<h3 id="trainingdesc">A. Training / Project Description</h3>
+<p>
+The practicum involved hands-on participation in IT support services,
+documentation, system maintenance, and administrative technical assistance.
+</p>
 
-    <h3>Milestones</h3>
-    <ul>
-        <li>Orientation</li>
-        <li>Task Execution</li>
-        <li>Project Completion</li>
-    </ul>
+<h3 id="trainingnature">B. Nature of Training / Project</h3>
+<p>
+The training focused on practical application of information technology
+concepts, including troubleshooting, system support, and data management.
+</p>
+
+<h3 id="milestones">C. Training / Project Milestones</h3>
+<ul>
+<li>Orientation and familiarization</li>
+<li>Assignment of tasks</li>
+<li>Execution and supervision</li>
+<li>Completion and evaluation</li>
+</ul>
 </section>
 
 <!-- OBSERVATIONS -->
-<section class="card" id="obs">
-    <h2>IV. Observations</h2>
+<section class="card">
+<h2>IV. Observations</h2>
 
-    <p>
-        The organization demonstrates strong academic leadership, efficient systems,
-        and professional workplace culture.
-    </p>
+<h3 id="advantages">A. Competitive Advantages</h3>
+<p>
+The organization demonstrates efficiency through structured workflows,
+competent staff, and effective use of information systems.
+</p>
+
+<h3 id="overall">B. Overall Observation</h3>
+<p>
+The working environment promotes professionalism, collaboration,
+and continuous learning.
+</p>
 </section>
 
 <!-- ANECDOTAL -->
-<section class="card" id="anec">
-    <h2>V. Anecdotal Reports</h2>
+<section class="card">
+<h2>V. Anecdotal Reports</h2>
 
-    <h3>Daily / Weekly / Monthly</h3>
-    <p>[Insert reports]</p>
+<h3 id="daily">A. Daily Reports</h3>
+<p>[Insert detailed daily activities]</p>
 
-    <h3>Summary of Gained Experience</h3>
-    <p>
-        The practicum strengthened my technical skills, communication abilities,
-        and understanding of real-world IT operations.
-    </p>
+<h3 id="weekly">B. Weekly Reports</h3>
+<p>[Insert weekly summary]</p>
+
+<h3 id="monthly">C. Monthly Reports</h3>
+<p>[Insert monthly overview]</p>
+
+<h3 id="tasks">D. Job Description / Task Assignments</h3>
+<p>[Insert assigned tasks]</p>
+
+<h3 id="problems">E. Problems Encountered</h3>
+<p>[Insert challenges]</p>
+
+<h3 id="practices">F. Salient Practices</h3>
+<p>[Insert good practices observed]</p>
+
+<h3 id="relevance">G. Relevance to the Chosen Training</h3>
+<p>[Explain relevance]</p>
+
+<h3 id="summary">H. Summary of Gained Experience</h3>
+<p>
+The practicum enhanced my technical knowledge, problem-solving skills,
+and professional work ethics.
+</p>
 </section>
 
-<!-- APPENDIX -->
-<section class="card" id="appendix">
-    <h2>VI. Appendices</h2>
+<!-- APPENDICES -->
+<section class="card" id="appendices">
+<h2>VI. Appendices</h2>
 
-    <ul>
-        <li>Certificate of Completion</li>
-        <li>Attendance Records</li>
-        <li>Updated Resume</li>
-        <li>
-            LinkedIn:
-            <a href="https://www.linkedin.com/in/roel-de-los-reyes-7a76412b6/" target="_blank">
-                View Profile
-            </a>
-        </li>
-    </ul>
+<div class="appendix-grid">
+<div class="appendix-card">
+<img src="images/app1.jpg">
+<span>Recommendation Letter</span>
+</div>
+<div class="appendix-card">
+<img src="images/app2.jpg">
+<span>Certificate of Completion</span>
+</div>
+<div class="appendix-card">
+<img src="images/app3.jpg">
+<span>Performance Evaluation</span>
+</div>
+<div class="appendix-card">
+<img src="images/app4.jpg">
+<span>Attendance Records</span>
+</div>
+<div class="appendix-card">
+<img src="images/app5.jpg">
+<span>Images During Practicum</span>
+</div>
+<div class="appendix-card">
+<img src="images/app6.jpg">
+<span>Updated Resume</span>
+</div>
+<div class="appendix-card">
+<img src="images/app7.jpg">
+<span>Jobs180 Profile</span>
+</div>
+<div class="appendix-card">
+<img src="images/app8.jpg">
+<span>LinkedIn Profile</span>
+</div>
+</div>
 </section>
 
 <footer>
-    © 2025 – Roel S. Delos Reyes
+© 2025 – Roel S. Delos Reyes
 </footer>
 
 </main>
 </div>
-
 </body>
 </html>
