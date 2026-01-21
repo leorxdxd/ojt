@@ -7,7 +7,7 @@
 
   <style>
     :root{
-      /* Dark theme */
+      /* Dark theme (primary) */
       --bg:#0b0f17;
       --panel:#0f1623;
       --card:#121b2b;
@@ -16,22 +16,27 @@
       --muted:#a7b2c8;
       --accent:#7aa2ff;
 
-      --radius:14px;
-      --shadow:0 10px 25px rgba(0,0,0,.35);
+      --radius:16px;
+      --shadow:0 12px 30px rgba(0,0,0,.40);
 
       --font: Arial, Helvetica, sans-serif;
 
-      --sidebarW: 310px;
-      --pageW: 8.5in;     /* Letter width */
-      --pageMinH: 11in;   /* Letter height for print */
-      --pagePad: 0.75in;  /* Comfortable spacing */
+      --sidebarW: 320px;
+
+      /* WIDER UI (screen) */
+      --contentMax: 1180px;      /* makes sections wider, not letter size */
+      --pagePad: 28px;
+
+      /* print size */
+      --printW: 8.5in;
+      --printH: 11in;
     }
 
-    /* Light theme (darker / softer, not bright white) */
+    /* Light theme (darker, not white) */
     body.theme-light{
-      --bg:#e2e6ef;          /* darker than plain white */
-      --panel:#d7dde9;       /* darker panel */
-      --card:#eef1f7;        /* card surface */
+      --bg:#e0e5ef;
+      --panel:#d4dbe8;
+      --card:#eef2f8;
       --line:rgba(20,25,35,.18);
       --text:#141923;
       --muted:#374151;
@@ -79,7 +84,7 @@
       margin:0;
       font-size:18px;
       letter-spacing:.2px;
-      font-weight:700;
+      font-weight:800;
     }
     .brand p{
       margin:6px 0 0;
@@ -100,7 +105,7 @@
       padding:10px 12px;
       border-radius:12px;
       cursor:pointer;
-      font-weight:700;
+      font-weight:800;
       font-size:13px;
     }
     .theme-toggle button:hover{
@@ -119,7 +124,7 @@
       list-style:none;
       cursor:pointer;
       padding:12px 12px;
-      font-weight:700;
+      font-weight:800;
       font-size:13px;
       letter-spacing:.2px;
       display:flex;
@@ -157,13 +162,13 @@
     .main{
       margin-left:var(--sidebarW);
       width:calc(100% - var(--sidebarW));
-      padding:22px 16px 60px;
+      padding:22px 20px 70px;
     }
 
-    /* “Letter page” container */
+    /* Wide "page" cards */
     .page{
-      width: min(100%, var(--pageW));
-      margin: 0 auto 22px;     /* more spacing between pages */
+      width: min(100%, var(--contentMax));
+      margin: 0 auto 22px;
       background: var(--panel);
       border:1px solid var(--line);
       border-radius: var(--radius);
@@ -174,9 +179,9 @@
     .cover{ text-align:center; }
     .cover h2{
       margin:0;
-      font-size:28px;
+      font-size:30px;
       letter-spacing:.4px;
-      font-weight:800;
+      font-weight:900;
     }
     .cover .sub{
       margin:10px 0 0;
@@ -187,7 +192,7 @@
       margin-top:18px;
       display:flex;
       flex-direction:column;
-      gap:10px;            /* more space */
+      gap:10px;
       color:var(--text);
       font-size:14px;
     }
@@ -197,15 +202,15 @@
       font-size:22px;
       padding-bottom:10px;
       border-bottom:1px solid var(--line);
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.2px;
     }
 
     h4{
-      margin:22px 0 10px;  /* more space */
+      margin:22px 0 10px;
       font-size:16px;
       letter-spacing:.2px;
-      font-weight:800;
+      font-weight:900;
     }
 
     p{ margin:0 0 14px; }
@@ -217,7 +222,7 @@
     .two-col{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:18px; /* more space */
+      gap:18px;
       margin-top:12px;
     }
 
@@ -228,7 +233,7 @@
       padding:16px;
     }
 
-    /* Images (bigger) */
+    /* Images */
     .img-grid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -245,7 +250,7 @@
     .img-card img{
       display:block;
       width:100%;
-      height:220px;  /* bigger */
+      height:240px;
       object-fit:cover;
       background: rgba(255,255,255,.03);
     }
@@ -266,7 +271,7 @@
     table{
       width:100%;
       border-collapse:collapse;
-      min-width: 720px;
+      min-width: 920px; /* wider */
     }
     th, td{
       padding:12px 12px;
@@ -300,7 +305,7 @@
       margin-bottom:10px;
     }
     .gallery-title{
-      font-weight:800;
+      font-weight:900;
       font-size:14px;
       letter-spacing:.2px;
     }
@@ -312,10 +317,10 @@
       border:1px solid var(--line);
       background:transparent;
       color:var(--text);
-      padding:8px 10px;
+      padding:9px 11px;
       border-radius:10px;
       cursor:pointer;
-      font-weight:800;
+      font-weight:900;
       font-size:13px;
       line-height:1;
     }
@@ -327,12 +332,12 @@
     .gallery{
       display:flex;
       gap:14px;
-      overflow:hidden;            /* hide extra */
+      overflow:hidden;
       scroll-behavior:smooth;
     }
     .gitem{
       flex:0 0 auto;
-      width: 320px;              /* big preview size */
+      width: 360px;
       border:1px solid var(--line);
       border-radius:12px;
       overflow:hidden;
@@ -341,7 +346,7 @@
     }
     .gitem img{
       width:100%;
-      height: 220px;
+      height: 250px;
       object-fit:cover;
       display:block;
     }
@@ -351,7 +356,7 @@
       color:var(--muted);
     }
 
-    /* Modal (image popup) */
+    /* Modal */
     .modal{
       position:fixed;
       inset:0;
@@ -364,7 +369,7 @@
     }
     .modal.open{ display:flex; }
     .modal-box{
-      width:min(980px, 96vw);
+      width:min(1100px, 96vw);
       background: var(--panel);
       border:1px solid var(--line);
       border-radius:14px;
@@ -381,7 +386,7 @@
       background: var(--card);
     }
     .modal-title{
-      font-weight:800;
+      font-weight:900;
       font-size:13px;
       color:var(--muted);
       overflow:hidden;
@@ -415,9 +420,8 @@
       background: rgba(0,0,0,.18);
     }
 
-    /* Footer */
     .footer{
-      width: min(100%, var(--pageW));
+      width: min(100%, var(--contentMax));
       margin: 0 auto;
       color:var(--muted);
       font-size:13px;
@@ -426,7 +430,7 @@
     }
 
     /* Responsive */
-    @media (max-width: 920px){
+    @media (max-width: 980px){
       .sidebar{
         position:sticky;
         height:auto;
@@ -435,13 +439,14 @@
         border-bottom:1px solid var(--line);
       }
       .main{ margin-left:0; width:100%; }
+      table{ min-width: 720px; }
       .two-col{ grid-template-columns: 1fr; }
       .img-grid{ grid-template-columns: repeat(2, 1fr); }
-      .gitem{ width: 280px; }
+      .gitem{ width: 300px; }
     }
     @media (max-width: 520px){
       .img-grid{ grid-template-columns: 1fr; }
-      .gitem{ width: 240px; }
+      .gitem{ width: 250px; }
       .img-card img{ height: 240px; }
     }
 
@@ -451,8 +456,8 @@
       .sidebar{ display:none; }
       .main{ margin:0; padding:0; }
       .page{
-        width: 8.5in;
-        min-height: 11in;
+        width: var(--printW);
+        min-height: var(--printH);
         border:none;
         box-shadow:none;
         border-radius:0;
@@ -556,7 +561,7 @@
         </div>
       </details>
 
-      <details class="menu">
+      <details class="menu" open>
         <summary>
           V. Anecdotal Reports
           <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -564,10 +569,9 @@
           </svg>
         </summary>
         <div class="links">
-          <a href="#anecdotal">Overview</a>
-          <a href="#daily">A. Daily</a>
-          <a href="#weekly">B. Weekly</a>
-          <a href="#monthly">C. Monthly</a>
+          <a href="#daily-reports">A. Daily (Weekly View)</a>
+          <a href="#weekly-report">B. Weekly</a>
+          <a href="#monthly-report">C. Monthly</a>
           <a href="#tasks">D. Job Description / Tasks</a>
           <a href="#problems">E. Problems Encountered</a>
           <a href="#practices">F. Salient Practices</a>
@@ -657,7 +661,7 @@
               </tr>
               <tr>
                 <td><strong>V. Anecdotal Reports</strong></td>
-                <td>Daily • Weekly • Monthly • Job Description/Tasks • Problems Encountered • Salient Practices • Relevance • Summary</td>
+                <td>Daily (weekly view) • Weekly • Monthly • Tasks • Problems • Practices • Relevance • Summary</td>
               </tr>
               <tr>
                 <td><strong>Practicum Images</strong></td>
@@ -678,20 +682,16 @@
 
         <h4 id="rationale">A. Rationale</h4>
         <p>
-          On-the-Job Training is a real-world experience for students to learn about the field they plan to enter.
-          It helps in understanding workplace culture, expectations, and the skills needed to perform effectively
-          in a professional environment. OJT provides opportunities to apply classroom knowledge, improve confidence,
-          and build connections that can be valuable after graduation.
-        </p>
-        <p>
-          Internships help students learn, connect, and grow by developing skills outside the classroom and
-          allowing exposure to real tasks and professional work standards.
+          On-the-Job Training gives students a chance to see how work really feels day to day. It is different from
+          classroom exercises because the tasks are real, the time is limited, and people are counting on you.
+          This practicum helped me understand workplace expectations, build confidence, and improve how I communicate
+          while doing actual IT support work.
         </p>
 
         <h4 id="expectations">B. Work / Training / Project Expectations</h4>
         <p>
-          The practicum is expected to enhance technical competence, professional discipline, teamwork,
-          communication skills, and adaptability in real-world information technology environments.
+          My practicum goal was to improve technical skills and professional habits while supporting the daily IT operations of SISFU.
+          I expected to learn faster troubleshooting, better documentation, and proper coordination when handling requests from different offices.
         </p>
         <ul>
           <li>Apply IT knowledge in actual workplace tasks and workflows.</li>
@@ -737,8 +737,8 @@
           <div class="box">
             <h4 id="org-nature" style="margin-top:0;">B. Nature of Business</h4>
             <p>
-              The institution operates as a higher education provider delivering undergraduate and graduate programs
-              with international accreditation through partnerships with foreign universities.
+              SISFU is a higher education institution offering transnational programs and student services, supported by
+              administrative and technical departments to keep daily operations stable and efficient.
             </p>
 
             <h4 id="org-contact">D. Contact Information and Vicinity Map</h4>
@@ -767,7 +767,7 @@
         <h4 id="org-chart">C. Organizational Chart</h4>
         <div class="img-grid">
           <div class="img-card" style="grid-column:1/-1;" data-pop="images/orgchart.jpg" data-cap="Organizational Chart">
-            <img src="images/orgchart.jpg" alt="Organizational Chart" style="height:320px;">
+            <img src="images/orgchart.jpg" alt="Organizational Chart" style="height:340px;">
             <div class="cap">Organizational Chart</div>
           </div>
         </div>
@@ -794,17 +794,16 @@
           <div class="box">
             <h4 id="training-desc" style="margin-top:0;">A. Training / Project Description</h4>
             <p>
-              The practicum involved hands-on participation in IT support services, documentation, system maintenance,
-              and administrative technical assistance. The experience provided exposure to daily IT operations and
-              strengthened practical skills.
+              My practicum assignment focused on technical assistance under the MIS/IT support environment. I supported staff, faculty,
+              and students through troubleshooting, device setup, network assistance, documentation updates, and event technical preparation.
             </p>
           </div>
 
           <div class="box">
             <h4 id="training-nature" style="margin-top:0;">B. Nature of Training / Project</h4>
             <p>
-              The training focused on practical application of information technology concepts, including troubleshooting,
-              system support, user assistance, and data management aligned with workplace procedures.
+              The training was hands-on and service-based. Tasks ranged from daily equipment readiness to solving real issues
+              like printer connection errors, Wi-Fi concerns, and PC performance problems. I also supported office requests and event setups.
             </p>
           </div>
         </div>
@@ -819,10 +818,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td><strong>Orientation</strong></td><td>Familiarization with rules, tools, and assigned responsibilities.</td></tr>
-              <tr><td><strong>Task Assignment</strong></td><td>Receiving tasks and learning proper workflow and documentation.</td></tr>
-              <tr><td><strong>Execution</strong></td><td>Performing support and technical tasks under supervision.</td></tr>
-              <tr><td><strong>Completion</strong></td><td>Submission of outputs and evaluation of performance.</td></tr>
+              <tr><td><strong>Orientation</strong></td><td>Learned office rules, daily routine, and how requests are handled and recorded.</td></tr>
+              <tr><td><strong>Work Integration</strong></td><td>Handled tasks with guidance, then gradually managed requests more independently.</td></tr>
+              <tr><td><strong>Technical Support Growth</strong></td><td>Improved speed and accuracy in troubleshooting PCs, printers, and connectivity concerns.</td></tr>
+              <tr><td><strong>Completion</strong></td><td>Finished required hours, finalized documentation, and completed portfolio/report requirements.</td></tr>
             </tbody>
           </table>
         </div>
@@ -836,152 +835,606 @@
           <div class="box">
             <h4 id="advantages" style="margin-top:0;">A. Competitive Advantages</h4>
             <p>
-              The organization demonstrates efficiency through structured workflows, competent staff, and effective use of
-              information systems. Clear coordination and established standards support smooth operations.
+              The workplace runs smoothly because tasks are organized, people communicate well, and responsibilities are clear.
+              Even during busy hours, the staff coordinates and makes sure urgent concerns are handled first.
             </p>
             <ul>
-              <li>Organized processes and clear procedures.</li>
-              <li>Supportive staff and consistent supervision.</li>
-              <li>Effective documentation and use of technology.</li>
-              <li>Professional environment that promotes learning.</li>
+              <li>Clear procedures and a consistent daily routine.</li>
+              <li>Supportive staff and approachable supervisors.</li>
+              <li>Documentation habits that help tracking and follow-up.</li>
+              <li>Service mindset—requests are handled with urgency and respect.</li>
             </ul>
           </div>
 
           <div class="box">
             <h4 id="overall" style="margin-top:0;">B. Overall Observation</h4>
             <p>
-              The practicum environment promotes professionalism, collaboration, and continuous improvement. The experience
-              encouraged responsibility, communication, and adaptability while working on real tasks and deliverables.
+              The practicum helped me become more confident in assisting users and handling real problems. I learned that technical skills are important,
+              but being calm, respectful, and clear with people is just as important—especially when they are stressed and need help quickly.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- V. Anecdotal Reports -->
-      <section class="page" id="anecdotal">
+      <!-- ===================== DAILY REPORTS (1 WEEK PER PAGE + ARROWS) ===================== -->
+      <section class="page" id="daily-reports">
         <h3 class="section-title">V. Anecdotal Reports</h3>
+        <h4>A. Periodic Reports</h4>
+        <h4>i. Daily Reports (September 25 – November 27, 2025)</h4>
 
-        <h4 id="daily">A. Periodic Reports (Daily)</h4>
+        <style>
+          #daily-reports .week-controls{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+            margin:14px 0 10px;
+            padding:12px 14px;
+            border:1px solid var(--line);
+            border-radius:12px;
+            background: rgba(255,255,255,.03);
+          }
+          #daily-reports .week-controls button{
+            border:1px solid var(--line);
+            background:transparent;
+            color:inherit;
+            padding:10px 12px;
+            border-radius:10px;
+            cursor:pointer;
+            font-weight:900;
+            font-size:13px;
+            white-space:nowrap;
+          }
+          #daily-reports .week-controls button:hover{
+            border-color: rgba(122,162,255,.35);
+            color: var(--accent);
+          }
+          #daily-reports .week-controls button:disabled{
+            opacity:.45;
+            cursor:not-allowed;
+          }
+          #daily-reports .week-label{
+            font-weight:900;
+            letter-spacing:.2px;
+            text-align:center;
+            flex:1;
+            font-size:14px;
+          }
+          #daily-reports .week-note{
+            margin-top:10px;
+            color: var(--muted);
+            font-size:13px;
+            text-align:right;
+          }
+        </style>
+
+        <div class="week-controls">
+          <button type="button" id="prevWeekBtn">← Previous Week</button>
+          <div class="week-label" id="weekLabel">Week</div>
+          <button type="button" id="nextWeekBtn">Next Week →</button>
+        </div>
+
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th style="width:18%;">Date</th>
-                <th style="width:22%;">Task/Activity</th>
-                <th>Details / Output</th>
-                <th style="width:22%;">Skills Applied</th>
+                <th style="width:26%;">Date</th>
+                <th>Daily Activities</th>
+              </tr>
+            </thead>
+            <tbody id="dailyWeekBody"></tbody>
+          </table>
+        </div>
+
+        <div class="week-note" id="weekCountNote"></div>
+
+        <script>
+          const dailyEntries = [
+            {"date":"2025-09-25","display":"September 25, 2025","day":"Thursday","activity":"Opened and checked TVs and shared equipment early in the morning. Assisted staff and faculty with PC issues (slow units, software errors, and quick fixes). Updated work files and documents so the team’s records stayed clean. Helped users reconnect to Wi-Fi and confirmed stable access before they continued working."},
+            {"date":"2025-09-26","display":"September 26, 2025","day":"Friday","activity":"Started with device checks, then worked on student/employee ID processing. I double-checked details before printing to avoid rework. Answered calls and emails for support requests and helped with small troubleshooting concerns when needed."},
+            {"date":"2025-09-27","display":"September 27, 2025","day":"Saturday","activity":"Half-day duty. Assisted with quick troubleshooting, handled small printing requests, and helped keep workstations organized for the coming week."},
+            {"date":"2025-09-28","display":"September 28, 2025","day":"Sunday","activity":"No duty (Sunday)."},
+            {"date":"2025-09-29","display":"September 29, 2025","day":"Monday","activity":"Opened and checked TVs/equipment. Assisted staff with troubleshooting and printer connection issues. Printed signages and office materials requested by departments and made sure outputs were clean and readable."},
+            {"date":"2025-09-30","display":"September 30, 2025","day":"Tuesday","activity":"Focused on printer setup and Wi-Fi assistance for users who needed access. Printed office materials and handled small tasks while keeping track of requests so nothing was missed."},
+
+            {"date":"2025-10-01","display":"October 1, 2025","day":"Wednesday","activity":"Reported after class and continued tasks in the MIS office. Prepared basic technical setup for scheduled activities and updated work records. Assisted in troubleshooting and made sure shared equipment was ready."},
+            {"date":"2025-10-02","display":"October 2, 2025","day":"Thursday","activity":"Did routine checks on computers and peripherals. Assisted with calls and emails regarding technical concerns, and helped users reconnect to Wi-Fi and verify stable connection."},
+            {"date":"2025-10-03","display":"October 3, 2025","day":"Friday","activity":"Reported after class. Processed IDs and ensured correct details before printing. Handled printing requests and assisted with small troubleshooting cases throughout the day."},
+            {"date":"2025-10-04","display":"October 4, 2025","day":"Saturday","activity":"Half-day duty. Assisted with basic troubleshooting, checked printers and shared devices, and helped close tasks for the week."},
+            {"date":"2025-10-05","display":"October 5, 2025","day":"Sunday","activity":"No duty (Sunday)."},
+
+            {"date":"2025-10-06","display":"October 6, 2025","day":"Monday","activity":"Started with equipment readiness and handled Wi-Fi and PC issues from staff/faculty. Answered calls and emails and made sure urgent concerns were addressed first."},
+            {"date":"2025-10-07","display":"October 7, 2025","day":"Tuesday","activity":"Worked on printer connectivity and settings, especially for stations that kept failing to detect the printer. Assisted with minor network checks and helped users continue their work smoothly."},
+            {"date":"2025-10-08","display":"October 8, 2025","day":"Wednesday","activity":"Reported after class. Assisted with calls and emails, supported ID printing, and helped check shared equipment used for office needs."},
+            {"date":"2025-10-09","display":"October 9, 2025","day":"Thursday","activity":"Handled troubleshooting requests and Wi-Fi connection issues. Assisted with printer setup and ensured outputs printed correctly before handing them to requesters."},
+            {"date":"2025-10-10","display":"October 10, 2025","day":"Friday","activity":"Reported after class. Updated office documents and assisted with printing requests. Checked devices and helped address issues raised by staff members."},
+            {"date":"2025-10-11","display":"October 11, 2025","day":"Saturday","activity":"Conference support day. Helped set up screens and connections, checked AV lines, and stayed on standby for quick fixes. It was busy, but satisfying to see everything run smoothly."},
+            {"date":"2025-10-12","display":"October 12, 2025","day":"Sunday","activity":"No duty (Sunday)."},
+
+            {"date":"2025-10-13","display":"October 13, 2025","day":"Monday","activity":"Started with equipment checks and supported troubleshooting requests. Assisted in printer setup and handled printing materials needed by departments."},
+            {"date":"2025-10-14","display":"October 14, 2025","day":"Tuesday","activity":"Assisted users with Wi-Fi access and processed IDs. Answered calls and emails and made sure requests were documented properly for follow-up."},
+            {"date":"2025-10-15","display":"October 15, 2025","day":"Wednesday","activity":"Reported after class. Updated work records and helped prepare devices for scheduled activities. Supported troubleshooting tasks when requests came in."},
+            {"date":"2025-10-16","display":"October 16, 2025","day":"Thursday","activity":"Handled troubleshooting and basic network checks. Assisted with printer setup and made sure staff could print without delays."},
+            {"date":"2025-10-17","display":"October 17, 2025","day":"Friday","activity":"Reported after class. Responded to emails and calls, printed needed materials, and supported troubleshooting tasks as assigned."},
+            {"date":"2025-10-18","display":"October 18, 2025","day":"Saturday","activity":"Half-day duty. Helped with quick troubleshooting and checked printers and workstations before closing."},
+            {"date":"2025-10-19","display":"October 19, 2025","day":"Sunday","activity":"No duty (Sunday)."},
+
+            {"date":"2025-10-20","display":"October 20, 2025","day":"Monday","activity":"Supported Wi-Fi and printer concerns and updated work documents. Helped staff continue tasks without being interrupted by small technical problems."},
+            {"date":"2025-10-21","display":"October 21, 2025","day":"Tuesday","activity":"Assisted with troubleshooting and printing requests. Answered calls and emails and handled priorities based on urgency."},
+            {"date":"2025-10-22","display":"October 22, 2025","day":"Wednesday","activity":"Reported after class. Processed IDs and supported printer setup requests. Ensured outputs were correct before release."},
+            {"date":"2025-10-23","display":"October 23, 2025","day":"Thursday","activity":"Assisted with connectivity checks and printing needs. Supported staff with Wi-Fi issues and basic troubleshooting."},
+            {"date":"2025-10-24","display":"October 24, 2025","day":"Friday","activity":"Supported an extended activity/program. Assisted with technical setup and stayed ready to fix connection or printing issues after the event."},
+            {"date":"2025-10-25","display":"October 25, 2025","day":"Saturday","activity":"Half-day duty. Assisted with basic troubleshooting, device checks, and small printing tasks."},
+            {"date":"2025-10-26","display":"October 26, 2025","day":"Sunday","activity":"No duty (Sunday)."},
+
+            {"date":"2025-10-27","display":"October 27, 2025","day":"Monday","activity":"Equipment checks in the morning, then handled troubleshooting and printer setup. Assisted with basic network checks when users reported connection issues."},
+            {"date":"2025-10-28","display":"October 28, 2025","day":"Tuesday","activity":"Processed IDs and assisted with Wi-Fi and support requests. Answered calls and emails and kept the task list organized."},
+            {"date":"2025-10-29","display":"October 29, 2025","day":"Wednesday","activity":"Reported after class. Printed office materials, updated documents, and handled troubleshooting tasks as needed."},
+            {"date":"2025-10-30","display":"October 30, 2025","day":"Thursday","activity":"Assisted with troubleshooting, device readiness, and basic network checks. Helped prepare equipment needed for office activities."},
+            {"date":"2025-10-31","display":"October 31, 2025","day":"Friday","activity":"Answered calls/emails, checked printers and settings, and assisted staff with small technical issues during the day."},
+            {"date":"2025-11-01","display":"November 1, 2025","day":"Saturday","activity":"Half-day duty. Assisted with quick fixes, basic printer checks, and end-of-week device readiness."},
+            {"date":"2025-11-02","display":"November 2, 2025","day":"Sunday","activity":"No duty (Sunday)."},
+
+            {"date":"2025-11-03","display":"November 3, 2025","day":"Monday","activity":"Assisted users with Wi-Fi and printer issues and updated work records. Supported staff requests throughout the day."},
+            {"date":"2025-11-04","display":"November 4, 2025","day":"Tuesday","activity":"Handled troubleshooting requests, printed signages/materials, and answered calls/emails for technical concerns."},
+            {"date":"2025-11-05","display":"November 5, 2025","day":"Wednesday","activity":"Reported after class. Processed IDs and assisted with printer setup and troubleshooting. Ensured outputs were accurate."},
+            {"date":"2025-11-06","display":"November 6, 2025","day":"Thursday","activity":"Assisted with connectivity checks and Wi-Fi concerns. Printed office materials and handled troubleshooting requests."},
+            {"date":"2025-11-07","display":"November 7, 2025","day":"Friday","activity":"Reported after class. Responded to emails, updated work documents, and supported troubleshooting tasks as assigned."},
+            {"date":"2025-11-08","display":"November 8, 2025","day":"Saturday","activity":"Half-day duty. Assisted with basic troubleshooting and kept printers and shared equipment ready for the next week."},
+            {"date":"2025-11-09","display":"November 9, 2025","day":"Sunday","activity":"No duty (Sunday)."},
+
+            {"date":"2025-11-10","display":"November 10, 2025","day":"Monday","activity":"Handled troubleshooting and printer support. Assisted staff with Wi-Fi and basic connection issues."},
+            {"date":"2025-11-11","display":"November 11, 2025","day":"Tuesday","activity":"Processed IDs and handled printing requests. Answered calls and emails and assisted with technical concerns as needed."},
+            {"date":"2025-11-12","display":"November 12, 2025","day":"Wednesday","activity":"Reported after class. Assisted with Wi-Fi support and documentation updates. Helped troubleshoot minor PC issues."},
+            {"date":"2025-11-13","display":"November 13, 2025","day":"Thursday","activity":"Supported troubleshooting requests and basic network checks. Assisted with printer setup and ensured stable printing."},
+            {"date":"2025-11-14","display":"November 14, 2025","day":"Friday","activity":"Reported after class. Answered emails/calls, printed needed materials, and supported urgent troubleshooting requests."},
+            {"date":"2025-11-15","display":"November 15, 2025","day":"Saturday","activity":"Half-day duty. Assisted with quick fixes and ensured devices were in good condition before closing."},
+            {"date":"2025-11-16","display":"November 16, 2025","day":"Sunday","activity":"No duty (Sunday)."},
+
+            {"date":"2025-11-17","display":"November 17, 2025","day":"Monday","activity":"Assisted with Wi-Fi and printer support. Updated work records and handled troubleshooting requests as they came in."},
+            {"date":"2025-11-18","display":"November 18, 2025","day":"Tuesday","activity":"Handled troubleshooting requests and helped prepare equipment for meetings/activities. Stayed on standby for quick support."},
+            {"date":"2025-11-19","display":"November 19, 2025","day":"Wednesday","activity":"Reported after class. Processed IDs, responded to emails/calls, and assisted with support tasks."},
+            {"date":"2025-11-20","display":"November 20, 2025","day":"Thursday","activity":"Assisted with connectivity checks and printer setup. Helped users get back online and working with minimal delay."},
+            {"date":"2025-11-21","display":"November 21, 2025","day":"Friday","activity":"Reported after class. Updated documents, printed office materials, and handled troubleshooting requests."},
+            {"date":"2025-11-22","display":"November 22, 2025","day":"Saturday","activity":"Half-day duty. Assisted with basic troubleshooting and helped keep equipment and printers ready."},
+            {"date":"2025-11-23","display":"November 23, 2025","day":"Sunday","activity":"Supported SISFU Graduation day. Helped test AV equipment, assisted with TV/projector setup, and stayed alert for last-minute fixes. Seeing the program run smoothly felt rewarding."},
+
+            {"date":"2025-11-24","display":"November 24, 2025","day":"Monday","activity":"Assisted staff with troubleshooting and printer setup. Answered calls and emails and handled support requests one by one."},
+            {"date":"2025-11-25","display":"November 25, 2025","day":"Tuesday","activity":"Processed IDs, handled Wi-Fi concerns, and printed requested materials. Checked outputs carefully before releasing them."},
+            {"date":"2025-11-26","display":"November 26, 2025","day":"Wednesday","activity":"Reported after class. Updated work records, responded to emails/calls, and assisted with troubleshooting tasks as assigned."},
+            {"date":"2025-11-27","display":"November 27, 2025","day":"Thursday","activity":"Final stretch of the practicum period. Assisted with troubleshooting and printer/network checks, and made sure pending tasks and records were complete before closing the day."}
+          ];
+
+          function toDateObj(iso){ const [y,m,d]=iso.split("-").map(Number); return new Date(y, m-1, d); }
+          function weekStartMonday(dateObj){
+            const day = dateObj.getDay(); // Sun=0..Sat=6
+            const diff = (day === 0 ? -6 : 1 - day);
+            const monday = new Date(dateObj);
+            monday.setDate(dateObj.getDate() + diff);
+            return monday;
+          }
+          function fmtRange(d1, d2){
+            const optsA = {month:"long", day:"numeric"};
+            const optsB = {month:"long", day:"numeric", year:"numeric"};
+            const a = d1.toLocaleDateString("en-US", optsA);
+            const b = d2.toLocaleDateString("en-US", optsB);
+            return `${a} – ${b}`;
+          }
+
+          const start = toDateObj(dailyEntries[0].date);
+          const end = toDateObj(dailyEntries[dailyEntries.length-1].date);
+          const firstWeek = weekStartMonday(start);
+
+          const weeks = [];
+          let cursor = new Date(firstWeek);
+
+          while(cursor <= end){
+            const weekEnd = new Date(cursor);
+            weekEnd.setDate(cursor.getDate() + 6);
+
+            const items = dailyEntries.filter(e=>{
+              const d = toDateObj(e.date);
+              return d >= cursor && d <= weekEnd;
+            });
+
+            weeks.push({ start: new Date(cursor), end: weekEnd, items });
+            cursor.setDate(cursor.getDate() + 7);
+          }
+
+          const bodyEl = document.getElementById("dailyWeekBody");
+          const weekLabelEl = document.getElementById("weekLabel");
+          const weekCountNote = document.getElementById("weekCountNote");
+          const prevBtn = document.getElementById("prevWeekBtn");
+          const nextBtn = document.getElementById("nextWeekBtn");
+
+          let currentWeekIndex = 0;
+
+          function renderWeek(i){
+            currentWeekIndex = i;
+            const wk = weeks[i];
+
+            weekLabelEl.textContent = `Week ${i+1}: ${fmtRange(wk.start, wk.end)}`;
+            weekCountNote.textContent = `Showing week ${i+1} of ${weeks.length}`;
+
+            prevBtn.disabled = (i === 0);
+            nextBtn.disabled = (i === weeks.length - 1);
+
+            bodyEl.innerHTML = "";
+            wk.items.forEach(e=>{
+              const tr = document.createElement("tr");
+              tr.innerHTML = `
+                <td class="dateCell">
+                  <strong>${e.display}</strong>
+                  <span>${e.day}</span>
+                </td>
+                <td>${e.activity}</td>
+              `;
+              bodyEl.appendChild(tr);
+            });
+          }
+
+          prevBtn.addEventListener("click", ()=>{ if(currentWeekIndex>0) renderWeek(currentWeekIndex-1); });
+          nextBtn.addEventListener("click", ()=>{ if(currentWeekIndex<weeks.length-1) renderWeek(currentWeekIndex+1); });
+
+          renderWeek(0);
+        </script>
+      </section>
+
+      <!-- ===================== WEEKLY ===================== -->
+      <section class="page" id="weekly-report">
+        <h3 class="section-title">V. Anecdotal Reports</h3>
+        <h4>B. Weekly Report Summary (Week 1 – Week 10)</h4>
+
+        <p class="muted">
+          These weekly summaries reflect the flow of work from late September to late November. Some weeks were heavier because of events,
+          printing deadlines, or many support requests.
+        </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:14%;">Week</th>
+                <th style="width:22%;">Date Range</th>
+                <th>Weekly Highlights</th>
+                <th style="width:26%;">Outputs / Notes</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>[Insert Date]</strong></td>
-                <td>Orientation</td>
-                <td>Familiarization with policies, tools, and assigned duties.</td>
-                <td>Communication, professionalism</td>
+                <td><strong>Week 1</strong></td>
+                <td>Sep 25 – Sep 28</td>
+                <td>Started adjusting to the routine: equipment checks, basic troubleshooting, and learning how requests are handled and tracked.</td>
+                <td>Assisted with first support tasks; familiarized with office flow.</td>
               </tr>
               <tr>
-                <td><strong>[Insert Date]</strong></td>
-                <td>Documentation</td>
-                <td>Prepared/updated reports, forms, or records.</td>
-                <td>Documentation, attention to detail</td>
+                <td><strong>Week 2</strong></td>
+                <td>Sep 29 – Oct 5</td>
+                <td>Handled more printing and device support. Assisted with Wi-Fi connection requests and printer configuration concerns.</td>
+                <td>Printer and Wi-Fi assistance; printed materials and signages.</td>
               </tr>
               <tr>
-                <td><strong>[Insert Date]</strong></td>
+                <td><strong>Week 3</strong></td>
+                <td>Oct 6 – Oct 12</td>
+                <td>Focused on troubleshooting and network-related requests. Supported a conference day and learned how important preparation is.</td>
+                <td>Event support; improved speed in handling common issues.</td>
+              </tr>
+              <tr>
+                <td><strong>Week 4</strong></td>
+                <td>Oct 13 – Oct 19</td>
+                <td>Balanced class and OJT tasks. Continued troubleshooting and printing work while keeping documentation organized.</td>
+                <td>Consistent daily outputs; fewer repeated errors due to better checking.</td>
+              </tr>
+              <tr>
+                <td><strong>Week 5</strong></td>
+                <td>Oct 20 – Oct 26</td>
+                <td>Busy week with mixed requests. Helped support an activity/program and stayed on standby for quick fixes.</td>
+                <td>Event follow-up checks; handled multiple requests smoothly.</td>
+              </tr>
+              <tr>
+                <td><strong>Week 6</strong></td>
+                <td>Oct 27 – Nov 2</td>
+                <td>More consistent handling of troubleshooting and printer issues. Improved coordination by keeping a clear task list.</td>
+                <td>Faster turnaround for support requests; better prioritization.</td>
+              </tr>
+              <tr>
+                <td><strong>Week 7</strong></td>
+                <td>Nov 3 – Nov 9</td>
+                <td>Handled routine support: Wi-Fi, printers, documents, calls/emails. Learned to stay calm when requests came in back-to-back.</td>
+                <td>Steady support outputs; improved communication with users.</td>
+              </tr>
+              <tr>
+                <td><strong>Week 8</strong></td>
+                <td>Nov 10 – Nov 16</td>
+                <td>Continued ID processing and troubleshooting. Paid more attention to checking details to avoid repeated printing or corrections.</td>
+                <td>Accurate ID prints; cleaner documentation and records.</td>
+              </tr>
+              <tr>
+                <td><strong>Week 9</strong></td>
+                <td>Nov 17 – Nov 23</td>
+                <td>Supported equipment preparation and troubleshooting. Assisted during Graduation day—one of the busiest and most fulfilling days.</td>
+                <td>Graduation AV support; strengthened confidence under pressure.</td>
+              </tr>
+              <tr>
+                <td><strong>Week 10</strong></td>
+                <td>Nov 24 – Nov 27</td>
+                <td>Final week wrap-up: kept support requests moving and ensured pending tasks and records were complete.</td>
+                <td>Closed remaining requests; ensured documentation was in order.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===================== MONTHLY ===================== -->
+      <section class="page" id="monthly-report">
+        <h3 class="section-title">V. Anecdotal Reports</h3>
+        <h4>C. Monthly Report Summary</h4>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:20%;">Month</th>
+                <th>Key Responsibilities</th>
+                <th style="width:30%;">Skills Strengthened</th>
+                <th style="width:26%;">Personal Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>October 2025</strong></td>
+                <td>
+                  Daily equipment readiness, printer setup, Wi-Fi assistance, ID processing, support calls/emails, event technical support and follow-ups.
+                </td>
+                <td>
+                  Troubleshooting fundamentals, device configuration, basic networking habits, documentation, and communication.
+                </td>
+                <td>
+                  I started the month still adjusting, but by the middle weeks I felt more confident handling common problems without panicking.
+                </td>
+              </tr>
+              <tr>
+                <td><strong>November 2025</strong></td>
+                <td>
+                  Continued daily IT support with more consistent workflow. Supported busy days, including Graduation preparations and on-site assistance.
+                </td>
+                <td>
+                  Prioritization, calm coordination during multiple requests, improved checking/accuracy, and stronger professionalism.
+                </td>
+                <td>
+                  This month taught me how important it is to communicate clearly and stay patient—especially when users are stressed and time is limited.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===================== D. TASKS ===================== -->
+      <section class="page" id="tasks">
+        <h3 class="section-title">V. Anecdotal Reports</h3>
+        <h4>D. Job Description / Task Assignments</h4>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:34%;">Task Assignment</th>
+                <th>Details</th>
+                <th style="width:24%;">Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Technical Support (Staff & Faculty)</strong></td>
+                <td>Troubleshoot computer concerns, assist with software issues, and guide users through simple steps if needed.</td>
                 <td>IT Support</td>
-                <td>Assisted users with basic troubleshooting and guidance.</td>
-                <td>Troubleshooting, user support</td>
+              </tr>
+              <tr>
+                <td><strong>Student Assistance</strong></td>
+                <td>Help students with basic connectivity concerns or device troubleshooting when requests are forwarded to the office.</td>
+                <td>User Support</td>
+              </tr>
+              <tr>
+                <td><strong>ID Processing</strong></td>
+                <td>Create and print student and employee IDs. Check details (name, photo, ID number) carefully before releasing.</td>
+                <td>Production / Admin</td>
+              </tr>
+              <tr>
+                <td><strong>Networking Tasks</strong></td>
+                <td>Assist with Wi-Fi troubleshooting, printer connections, and basic router checks/installation tasks as assigned.</td>
+                <td>Networking</td>
+              </tr>
+              <tr>
+                <td><strong>Event Technical Support</strong></td>
+                <td>Setup and test TVs/projectors and cables, and stay available for quick fixes during programs.</td>
+                <td>Operations</td>
+              </tr>
+              <tr>
+                <td><strong>Maintenance</strong></td>
+                <td>Routine checks on computers and shared equipment; basic maintenance like checking peripherals and cleanliness.</td>
+                <td>Maintenance</td>
+              </tr>
+              <tr>
+                <td><strong>Office / Documentation</strong></td>
+                <td>Answer calls and emails, update work-related documents, print signages, and assist with small office errands when assigned.</td>
+                <td>Administrative</td>
+              </tr>
+              <tr>
+                <td><strong>CCTV Assistance</strong></td>
+                <td>Assist with CCTV-related tasks when assigned (support during installation, checking placement/readiness).</td>
+                <td>Security Systems</td>
               </tr>
             </tbody>
           </table>
         </div>
+      </section>
 
-        <h4 id="weekly">B. Periodic Reports (Weekly)</h4>
+      <!-- ===================== E. PROBLEMS ===================== -->
+      <section class="page" id="problems">
+        <h3 class="section-title">V. Anecdotal Reports</h3>
+        <h4>E. Problems Encountered</h4>
+
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th style="width:18%;">Week</th>
-                <th>Summary</th>
-                <th style="width:28%;">Key Outputs</th>
+                <th style="width:26%;">Problem</th>
+                <th>Situation / Impact</th>
+                <th style="width:30%;">Action Taken / Solution</th>
+                <th style="width:20%;">Result / Lesson</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td><strong>Week 1</strong></td><td>Orientation, familiarization, initial documentation tasks.</td><td>Basic reports, task notes</td></tr>
-              <tr><td><strong>Week 2</strong></td><td>Support requests, updating records, routine technical tasks.</td><td>Support logs, updated records</td></tr>
-              <tr><td><strong>Week 3</strong></td><td>More independent tasks and improved task efficiency.</td><td>Completed assigned outputs</td></tr>
+              <tr>
+                <td><strong>Unstable Wi-Fi / Internet</strong></td>
+                <td>Intermittent connection affected access and delayed office work.</td>
+                <td>Checked device connections, did step-by-step isolation (device vs network), restarted properly, and coordinated with supervisor when needed.</td>
+                <td>Improved response time; learned to troubleshoot calmly and systematically.</td>
+              </tr>
+              <tr>
+                <td><strong>Printer Driver / Connection Issues</strong></td>
+                <td>Printers not detected or printing errors slowed down requests.</td>
+                <td>Verified cables/network, reinstalled drivers when required, corrected default printer settings, and tested outputs before release.</td>
+                <td>Restored printing; gained attention to detail and patience with settings.</td>
+              </tr>
+              <tr>
+                <td><strong>Time-Sensitive Event Setup</strong></td>
+                <td>Equipment had to work before program start; pressure was high.</td>
+                <td>Prepared early, tested cables and connections, kept backup options ready, and worked closely with the team during changes.</td>
+                <td>Built confidence under pressure and learned to always test ahead.</td>
+              </tr>
+              <tr>
+                <td><strong>Multiple Requests at the Same Time</strong></td>
+                <td>Support tasks, printing, and IDs could overlap and become overwhelming.</td>
+                <td>Prioritized urgent concerns, queued non-urgent tasks, and communicated realistic updates to requesters.</td>
+                <td>Better task management and more professional communication.</td>
+              </tr>
             </tbody>
           </table>
         </div>
+      </section>
 
-        <h4 id="monthly">C. Periodic Reports (Monthly)</h4>
+      <!-- ===================== F. PRACTICES ===================== -->
+      <section class="page" id="practices">
+        <h3 class="section-title">V. Anecdotal Reports</h3>
+        <h4>F. Salient Practices</h4>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:30%;">Practice Observed</th>
+                <th>Explanation</th>
+                <th style="width:28%;">Importance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Proper Documentation</strong></td>
+                <td>Requests and updates are recorded so tasks can be tracked and followed up properly.</td>
+                <td>Prevents missed work and helps continuity even when the day gets busy.</td>
+              </tr>
+              <tr>
+                <td><strong>Clear Communication</strong></td>
+                <td>Explaining steps to users and giving status updates to supervisors when needed.</td>
+                <td>Reduces confusion and helps people feel supported, not ignored.</td>
+              </tr>
+              <tr>
+                <td><strong>Preparation Before Events</strong></td>
+                <td>Testing equipment and connections ahead of time instead of waiting for the last minute.</td>
+                <td>Prevents delays and makes events run smoother for everyone.</td>
+              </tr>
+              <tr>
+                <td><strong>Professional User Support</strong></td>
+                <td>Being patient and respectful even when users are frustrated or in a hurry.</td>
+                <td>Builds trust and keeps the working environment positive.</td>
+              </tr>
+              <tr>
+                <td><strong>Accuracy in IDs and Documents</strong></td>
+                <td>Double-checking details before printing or releasing outputs.</td>
+                <td>Saves time and avoids repeated work or unnecessary corrections.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===================== G. RELEVANCE ===================== -->
+      <section class="page" id="relevance">
+        <h3 class="section-title">V. Anecdotal Reports</h3>
+        <h4>G. Relevance to the Chosen Training (BSIT)</h4>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:28%;">BSIT Area</th>
+                <th>Practicum Application</th>
+                <th style="width:30%;">Examples from Work</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Technical Support</strong></td>
+                <td>Hands-on troubleshooting and user assistance.</td>
+                <td>PC issues, printer setup, user guidance, day-to-day support requests.</td>
+              </tr>
+              <tr>
+                <td><strong>Networking Fundamentals</strong></td>
+                <td>Connectivity checks and basic configuration habits.</td>
+                <td>Wi-Fi assistance, router checks, network printing, connection verification.</td>
+              </tr>
+              <tr>
+                <td><strong>Systems Maintenance</strong></td>
+                <td>Routine device readiness and basic upkeep.</td>
+                <td>Daily equipment checks, computer/peripheral checks, maintaining shared devices.</td>
+              </tr>
+              <tr>
+                <td><strong>Professional Practice</strong></td>
+                <td>Communication, documentation, time management, and teamwork.</td>
+                <td>Calls/emails, updating work files, prioritizing urgent concerns, supporting events.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===================== H. SUMMARY ===================== -->
+      <section class="page" id="summary">
+        <h3 class="section-title">V. Anecdotal Reports</h3>
+        <h4>H. Summary of Gained Experience</h4>
+
         <div class="two-col">
           <div class="box">
-            <h4 style="margin-top:0;">Month 1</h4>
-            <ul>
-              <li>Learned organizational workflow and documentation standards.</li>
-              <li>Improved communication and support handling.</li>
-            </ul>
-          </div>
-          <div class="box">
-            <h4 style="margin-top:0;">Month 2</h4>
-            <ul>
-              <li>Handled tasks with less supervision.</li>
-              <li>Improved time management and output quality.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="two-col" style="margin-top:18px;">
-          <div class="box">
-            <h4 id="tasks" style="margin-top:0;">D. Job Description / Task Assignments</h4>
-            <ul>
-              <li>Provide basic technical support and troubleshooting assistance.</li>
-              <li>Maintain and update documentation, inventories, and reports.</li>
-              <li>Assist with system checks and routine maintenance tasks.</li>
-              <li>Coordinate with staff for task priorities and progress updates.</li>
-            </ul>
-          </div>
-
-          <div class="box">
-            <h4 id="problems" style="margin-top:0;">E. Problems Encountered</h4>
-            <ul>
-              <li>[Problem 1] — [Brief solution/approach]</li>
-              <li>[Problem 2] — [Brief solution/approach]</li>
-              <li>[Problem 3] — [Brief solution/approach]</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="two-col" style="margin-top:18px;">
-          <div class="box">
-            <h4 id="practices" style="margin-top:0;">F. Salient Practices</h4>
-            <ul>
-              <li>Consistent documentation and record keeping.</li>
-              <li>Clear communication and teamwork.</li>
-              <li>Following policies for data and system security.</li>
-              <li>Professional support and service orientation.</li>
-            </ul>
-          </div>
-
-          <div class="box">
-            <h4 id="relevance" style="margin-top:0;">G. Relevance to the Chosen Training</h4>
+            <h4 style="margin-top:0;">What I Gained</h4>
             <p>
-              The practicum aligns with BSIT training by providing exposure to real IT operations such as technical support,
-              documentation, and troubleshooting. It improved readiness for professional IT responsibilities.
+              This practicum improved my confidence in troubleshooting, especially with common office issues like printers, Wi-Fi, and device setup.
+              I learned how to communicate clearly, stay calm under pressure, and keep work organized even during busy days.
+            </p>
+            <ul>
+              <li>Faster troubleshooting and better checking habits</li>
+              <li>Improved communication and user support</li>
+              <li>Better prioritization when requests overlap</li>
+              <li>More confidence working in a professional environment</li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h4 style="margin-top:0;">Why It Matters</h4>
+            <p>
+              The experience showed me that IT work is not only about fixing devices—it is also about helping people continue their work without stress.
+              Even simple tasks like printing or connecting to Wi-Fi matter because they affect the entire day of the user.
+            </p>
+            <p class="muted">
+              Overall, the practicum prepared me for real workplace expectations and gave me a better understanding of how IT support operates daily.
             </p>
           </div>
         </div>
-
-        <div class="box" style="margin-top:18px;">
-          <h4 id="summary" style="margin-top:0;">H. Summary of Gained Experience</h4>
-          <p>
-            The practicum enhanced technical skills, problem-solving ability, communication, and professional work ethics.
-            It provided valuable workplace experience and increased confidence in handling IT-related tasks.
-          </p>
-        </div>
       </section>
 
-      <!-- Practicum Images (Separate page + sliding gallery) -->
+      <!-- Practicum Images -->
       <section class="page" id="practicum-images-page">
         <h3 class="section-title">Images During Practicum</h3>
 
@@ -995,7 +1448,6 @@
           </div>
 
           <div class="gallery" id="practicumGallery">
-            <!-- Rename these to match your actual filenames -->
             <div class="gitem" data-pop="images/prac01.jpg" data-cap="Practicum Image 1"><img src="images/prac01.jpg" alt="Practicum Image 1"><div class="gcap">Practicum Image 1</div></div>
             <div class="gitem" data-pop="images/prac02.jpg" data-cap="Practicum Image 2"><img src="images/prac02.jpg" alt="Practicum Image 2"><div class="gcap">Practicum Image 2</div></div>
             <div class="gitem" data-pop="images/prac03.jpg" data-cap="Practicum Image 3"><img src="images/prac03.jpg" alt="Practicum Image 3"><div class="gcap">Practicum Image 3</div></div>
@@ -1019,7 +1471,6 @@
       <section class="page" id="appendices">
         <h3 class="section-title">VI. Appendices</h3>
 
-        <!-- Performance Evaluation (4 pages) -->
         <h4 id="evaluation-pages">Performance Evaluation Report</h4>
         <div class="gallery-wrap">
           <div class="gallery-head">
@@ -1031,7 +1482,6 @@
           </div>
 
           <div class="gallery" id="evalGallery">
-            <!-- Rename these to match your actual evaluation page filenames -->
             <div class="gitem" data-pop="images/eval1.jpg" data-cap="Evaluation Page 1"><img src="images/eval1.jpg" alt="Evaluation Page 1"><div class="gcap">Evaluation Page 1</div></div>
             <div class="gitem" data-pop="images/eval2.jpg" data-cap="Evaluation Page 2"><img src="images/eval2.jpg" alt="Evaluation Page 2"><div class="gcap">Evaluation Page 2</div></div>
             <div class="gitem" data-pop="images/eval3.jpg" data-cap="Evaluation Page 3"><img src="images/eval3.jpg" alt="Evaluation Page 3"><div class="gcap">Evaluation Page 3</div></div>
@@ -1093,112 +1543,103 @@
   </div>
 
   <!-- Image Modal -->
-  <div class="modal" id="imgModal" aria-hidden="true">
-    <div class="modal-box" role="dialog" aria-modal="true" aria-label="Image preview">
+  <div class="
+
+
+    <!-- Image Modal -->
+  <div class="modal" id="imgModal">
+    <div class="modal-box">
       <div class="modal-bar">
-        <div class="modal-title" id="modalTitle">Preview</div>
+        <div class="modal-title" id="modalTitle">Image Preview</div>
         <div class="modal-actions">
-          <button class="iconbtn" type="button" id="prevBtn" title="Previous">◀</button>
-          <button class="iconbtn" type="button" id="nextBtn" title="Next">▶</button>
-          <button class="iconbtn" type="button" id="closeBtn" title="Close">✕</button>
+          <button class="iconbtn" id="modalPrev">◀</button>
+          <button class="iconbtn" id="modalNext">▶</button>
+          <button class="iconbtn" id="modalClose">✕</button>
         </div>
       </div>
-      <img class="modal-img" id="modalImg" src="" alt="Preview">
+      <img src="" alt="Preview" class="modal-img" id="modalImg">
     </div>
   </div>
 
   <script>
-    // Theme (minimal)
+    /* ================= THEME TOGGLE ================= */
     const darkBtn = document.getElementById("darkBtn");
     const lightBtn = document.getElementById("lightBtn");
 
-    function setTheme(mode){
-      if(mode === "light") document.body.classList.add("theme-light");
-      else document.body.classList.remove("theme-light");
-      localStorage.setItem("portfolioTheme", mode);
-    }
-    darkBtn.addEventListener("click", () => setTheme("dark"));
-    lightBtn.addEventListener("click", () => setTheme("light"));
-    const saved = localStorage.getItem("portfolioTheme");
-    if(saved) setTheme(saved);
+    darkBtn.onclick = () => document.body.classList.remove("theme-light");
+    lightBtn.onclick = () => document.body.classList.add("theme-light");
 
-    // Sliding galleries (arrow buttons)
-    function scrollGallery(el, dir){
-      const amount = Math.max(260, Math.round(el.clientWidth * 0.85));
-      el.scrollBy({ left: dir * amount, behavior: "smooth" });
-    }
-
-    document.querySelectorAll("[data-scroll-left]").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        const sel = btn.getAttribute("data-scroll-left");
-        const el = document.querySelector(sel);
-        if(el) scrollGallery(el, -1);
-      });
-    });
-    document.querySelectorAll("[data-scroll-right]").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        const sel = btn.getAttribute("data-scroll-right");
-        const el = document.querySelector(sel);
-        if(el) scrollGallery(el, 1);
-      });
-    });
-
-    // Modal popup with next/prev
+    /* ================= IMAGE MODAL ================= */
     const modal = document.getElementById("imgModal");
     const modalImg = document.getElementById("modalImg");
     const modalTitle = document.getElementById("modalTitle");
-    const closeBtn = document.getElementById("closeBtn");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
+    const modalClose = document.getElementById("modalClose");
+    const modalPrev = document.getElementById("modalPrev");
+    const modalNext = document.getElementById("modalNext");
 
-    // Collect all clickable images in the document (img-card and gitem)
-    const clickable = Array.from(document.querySelectorAll("[data-pop]"));
-    let currentIndex = -1;
+    let modalImages = [];
+    let modalIndex = 0;
 
-    function openModal(index){
-      currentIndex = index;
-      const item = clickable[currentIndex];
-      const src = item.getAttribute("data-pop");
-      const cap = item.getAttribute("data-cap") || "Preview";
-      modalImg.src = src;
-      modalTitle.textContent = cap;
+    function openModal(images, index){
+      modalImages = images;
+      modalIndex = index;
+      updateModal();
       modal.classList.add("open");
-      modal.setAttribute("aria-hidden","false");
     }
 
-    function closeModal(){
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden","true");
-      modalImg.src = "";
-      currentIndex = -1;
+    function updateModal(){
+      const item = modalImages[modalIndex];
+      modalImg.src = item.src;
+      modalTitle.textContent = item.cap || "Image Preview";
     }
 
-    function showNext(delta){
-      if(currentIndex < 0) return;
-      const next = (currentIndex + delta + clickable.length) % clickable.length;
-      openModal(next);
-    }
+    modalClose.onclick = () => modal.classList.remove("open");
+    modal.onclick = e => { if(e.target === modal) modal.classList.remove("open"); };
 
-    clickable.forEach((el, idx)=>{
-      el.addEventListener("click", ()=> openModal(idx));
+    modalPrev.onclick = () => {
+      if(modalIndex > 0){
+        modalIndex--;
+        updateModal();
+      }
+    };
+
+    modalNext.onclick = () => {
+      if(modalIndex < modalImages.length - 1){
+        modalIndex++;
+        updateModal();
+      }
+    };
+
+    /* Collect clickable images */
+    document.querySelectorAll(".img-card, .gitem").forEach(group => {
+      group.addEventListener("click", e => {
+        const container = group.closest(".img-grid, .gallery");
+        const items = Array.from(container.querySelectorAll(".img-card, .gitem"))
+          .map(el => ({
+            src: el.dataset.pop,
+            cap: el.dataset.cap || ""
+          }));
+
+        const index = items.findIndex(i => i.src === group.dataset.pop);
+        openModal(items, index);
+      });
     });
 
-    closeBtn.addEventListener("click", closeModal);
-    prevBtn.addEventListener("click", ()=> showNext(-1));
-    nextBtn.addEventListener("click", ()=> showNext(1));
-
-    // Close when clicking outside the dialog box
-    modal.addEventListener("click", (e)=>{
-      if(e.target === modal) closeModal();
+    /* ================= GALLERY ARROWS ================= */
+    document.querySelectorAll("[data-scroll-left]").forEach(btn => {
+      btn.onclick = () => {
+        const g = document.querySelector(btn.dataset.scrollLeft);
+        g.scrollLeft -= 380;
+      };
     });
 
-    // Keyboard controls
-    document.addEventListener("keydown", (e)=>{
-      if(!modal.classList.contains("open")) return;
-      if(e.key === "Escape") closeModal();
-      if(e.key === "ArrowLeft") showNext(-1);
-      if(e.key === "ArrowRight") showNext(1);
+    document.querySelectorAll("[data-scroll-right]").forEach(btn => {
+      btn.onclick = () => {
+        const g = document.querySelector(btn.dataset.scrollRight);
+        g.scrollLeft += 380;
+      };
     });
   </script>
 </body>
 </html>
+
