@@ -24,7 +24,7 @@
       --sidebarW: 320px;
 
       /* WIDER UI (screen) */
-      --contentMax: 1180px;      /* makes sections wider, not letter size */
+      --contentMax: 1180px;
       --pagePad: 28px;
 
       /* print size */
@@ -271,7 +271,7 @@
     table{
       width:100%;
       border-collapse:collapse;
-      min-width: 920px; /* wider */
+      min-width: 920px;
     }
     th, td{
       padding:12px 12px;
@@ -356,7 +356,13 @@
       color:var(--muted);
     }
 
-    /* Modal */
+    /* ===================== MODAL (FIXED) =====================
+       - Escape closes
+       - Prev/Next wraps around
+       - Keyboard + focus-safe
+       - Blocks background scroll
+       - Optional download/open
+    */
     .modal{
       position:fixed;
       inset:0;
@@ -420,6 +426,9 @@
       background: rgba(0,0,0,.18);
     }
 
+    /* little helper: prevent scroll when modal open */
+    body.modal-lock{ overflow:hidden; }
+
     .footer{
       width: min(100%, var(--contentMax));
       margin: 0 auto;
@@ -448,6 +457,7 @@
       .img-grid{ grid-template-columns: 1fr; }
       .gitem{ width: 250px; }
       .img-card img{ height: 240px; }
+      .modal-title{ max-width: 58%; }
     }
 
     /* Print: letter size, clean */
@@ -905,6 +915,12 @@
             color: var(--muted);
             font-size:13px;
             text-align:right;
+          }
+          #daily-reports .dateCell span{
+            display:block;
+            color:var(--muted);
+            font-size:12px;
+            margin-top:2px;
           }
         </style>
 
@@ -1424,17 +1440,18 @@
           <div class="box">
             <h4 style="margin-top:0;">Why It Matters</h4>
             <p>
-              The experience showed me that IT work is not only about fixing devices—it is also about helping people continue their work without stress.
+              The experience showed me that IT work is not only about fixing devices—it is also              about helping people continue their work without stress.
               Even simple tasks like printing or connecting to Wi-Fi matter because they affect the entire day of the user.
             </p>
             <p class="muted">
-              Overall, the practicum prepared me for real workplace expectations and gave me a better understanding of how IT support operates daily.
+              Overall, the practicum prepared me for real workplace expectations and gave me a better understanding
+              of how IT support operates daily.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- Practicum Images -->
+      <!-- ===================== PRACTICUM IMAGES ===================== -->
       <section class="page" id="practicum-images-page">
         <h3 class="section-title">Images During Practicum</h3>
 
@@ -1448,90 +1465,47 @@
           </div>
 
           <div class="gallery" id="practicumGallery">
-            <div class="gitem" data-pop="images/prac01.jpg" data-cap="Practicum Image 1"><img src="images/prac01.jpg" alt="Practicum Image 1"><div class="gcap">Practicum Image 1</div></div>
-            <div class="gitem" data-pop="images/prac02.jpg" data-cap="Practicum Image 2"><img src="images/prac02.jpg" alt="Practicum Image 2"><div class="gcap">Practicum Image 2</div></div>
-            <div class="gitem" data-pop="images/prac03.jpg" data-cap="Practicum Image 3"><img src="images/prac03.jpg" alt="Practicum Image 3"><div class="gcap">Practicum Image 3</div></div>
-            <div class="gitem" data-pop="images/prac04.jpg" data-cap="Practicum Image 4"><img src="images/prac04.jpg" alt="Practicum Image 4"><div class="gcap">Practicum Image 4</div></div>
-            <div class="gitem" data-pop="images/prac05.jpg" data-cap="Practicum Image 5"><img src="images/prac05.jpg" alt="Practicum Image 5"><div class="gcap">Practicum Image 5</div></div>
-            <div class="gitem" data-pop="images/prac06.jpg" data-cap="Practicum Image 6"><img src="images/prac06.jpg" alt="Practicum Image 6"><div class="gcap">Practicum Image 6</div></div>
-            <div class="gitem" data-pop="images/prac07.jpg" data-cap="Practicum Image 7"><img src="images/prac07.jpg" alt="Practicum Image 7"><div class="gcap">Practicum Image 7</div></div>
-            <div class="gitem" data-pop="images/prac08.jpg" data-cap="Practicum Image 8"><img src="images/prac08.jpg" alt="Practicum Image 8"><div class="gcap">Practicum Image 8</div></div>
-            <div class="gitem" data-pop="images/prac09.jpg" data-cap="Practicum Image 9"><img src="images/prac09.jpg" alt="Practicum Image 9"><div class="gcap">Practicum Image 9</div></div>
-            <div class="gitem" data-pop="images/prac10.jpg" data-cap="Practicum Image 10"><img src="images/prac10.jpg" alt="Practicum Image 10"><div class="gcap">Practicum Image 10</div></div>
-            <div class="gitem" data-pop="images/prac11.jpg" data-cap="Practicum Image 11"><img src="images/prac11.jpg" alt="Practicum Image 11"><div class="gcap">Practicum Image 11</div></div>
-            <div class="gitem" data-pop="images/prac12.jpg" data-cap="Practicum Image 12"><img src="images/prac12.jpg" alt="Practicum Image 12"><div class="gcap">Practicum Image 12</div></div>
-            <div class="gitem" data-pop="images/prac13.jpg" data-cap="Practicum Image 13"><img src="images/prac13.jpg" alt="Practicum Image 13"><div class="gcap">Practicum Image 13</div></div>
-            <div class="gitem" data-pop="images/prac14.jpg" data-cap="Practicum Image 14"><img src="images/prac14.jpg" alt="Practicum Image 14"><div class="gcap">Practicum Image 14</div></div>
-            <div class="gitem" data-pop="images/prac15.jpg" data-cap="Practicum Image 15"><img src="images/prac15.jpg" alt="Practicum Image 15"><div class="gcap">Practicum Image 15</div></div>
+            <div class="gitem" data-pop="images/prac01.jpg" data-cap="Practicum Image 1"><img src="images/prac01.jpg"><div class="gcap">Practicum Image 1</div></div>
+            <div class="gitem" data-pop="images/prac02.jpg" data-cap="Practicum Image 2"><img src="images/prac02.jpg"><div class="gcap">Practicum Image 2</div></div>
+            <div class="gitem" data-pop="images/prac03.jpg" data-cap="Practicum Image 3"><img src="images/prac03.jpg"><div class="gcap">Practicum Image 3</div></div>
+            <div class="gitem" data-pop="images/prac04.jpg" data-cap="Practicum Image 4"><img src="images/prac04.jpg"><div class="gcap">Practicum Image 4</div></div>
+            <div class="gitem" data-pop="images/prac05.jpg" data-cap="Practicum Image 5"><img src="images/prac05.jpg"><div class="gcap">Practicum Image 5</div></div>
           </div>
         </div>
       </section>
 
-      <!-- VI. Appendices -->
+      <!-- ===================== APPENDICES ===================== -->
       <section class="page" id="appendices">
         <h3 class="section-title">VI. Appendices</h3>
 
-        <h4 id="evaluation-pages">Performance Evaluation Report</h4>
+        <h4 id="evaluation-pages">Performance Evaluation (4 Pages)</h4>
         <div class="gallery-wrap">
-          <div class="gallery-head">
-            <div class="gallery-title">Evaluation (4 Pages)</div>
-            <div class="gallery-controls">
-              <button class="gbtn" type="button" data-scroll-left="#evalGallery">◀</button>
-              <button class="gbtn" type="button" data-scroll-right="#evalGallery">▶</button>
-            </div>
-          </div>
-
           <div class="gallery" id="evalGallery">
-            <div class="gitem" data-pop="images/eval1.jpg" data-cap="Evaluation Page 1"><img src="images/eval1.jpg" alt="Evaluation Page 1"><div class="gcap">Evaluation Page 1</div></div>
-            <div class="gitem" data-pop="images/eval2.jpg" data-cap="Evaluation Page 2"><img src="images/eval2.jpg" alt="Evaluation Page 2"><div class="gcap">Evaluation Page 2</div></div>
-            <div class="gitem" data-pop="images/eval3.jpg" data-cap="Evaluation Page 3"><img src="images/eval3.jpg" alt="Evaluation Page 3"><div class="gcap">Evaluation Page 3</div></div>
-            <div class="gitem" data-pop="images/eval4.jpg" data-cap="Evaluation Page 4"><img src="images/eval4.jpg" alt="Evaluation Page 4"><div class="gcap">Evaluation Page 4</div></div>
+            <div class="gitem" data-pop="images/eval1.jpg" data-cap="Evaluation Page 1"><img src="images/eval1.jpg"><div class="gcap">Evaluation Page 1</div></div>
+            <div class="gitem" data-pop="images/eval2.jpg" data-cap="Evaluation Page 2"><img src="images/eval2.jpg"><div class="gcap">Evaluation Page 2</div></div>
+            <div class="gitem" data-pop="images/eval3.jpg" data-cap="Evaluation Page 3"><img src="images/eval3.jpg"><div class="gcap">Evaluation Page 3</div></div>
+            <div class="gitem" data-pop="images/eval4.jpg" data-cap="Evaluation Page 4"><img src="images/eval4.jpg"><div class="gcap">Evaluation Page 4</div></div>
           </div>
         </div>
 
         <h4 id="appendix-gallery">Appendix Gallery</h4>
         <div class="img-grid">
-          <div class="img-card" data-pop="images/app1.jpg" data-cap="Practicum Recommendation Letter">
-            <img src="images/app1.jpg" alt="Recommendation Letter"><div class="cap">Practicum Recommendation Letter</div>
-          </div>
-          <div class="img-card" data-pop="images/app2.jpg" data-cap="Certificate of Completion">
-            <img src="images/app2.jpg" alt="Certificate of Completion"><div class="cap">Certificate of Completion</div>
-          </div>
-          <div class="img-card" data-pop="images/app4.jpg" data-cap="Attendance Reports (DTR)">
-            <img src="images/app4.jpg" alt="Attendance Reports (DTR)"><div class="cap">Attendance Reports (DTR)</div>
-          </div>
-          <div class="img-card" data-pop="images/app6.jpg" data-cap="Updated Resume">
-            <img src="images/app6.jpg" alt="Updated Resume"><div class="cap">Updated Resume</div>
-          </div>
-          <div class="img-card" data-pop="images/app7.jpg" data-cap="Jobs180 Profile">
-            <img src="images/app7.jpg" alt="Jobs180 Profile"><div class="cap">Jobs180 Profile</div>
-          </div>
-          <div class="img-card" data-pop="images/app8.jpg" data-cap="LinkedIn Profile">
-            <img src="images/app8.jpg" alt="LinkedIn Profile"><div class="cap">LinkedIn Profile</div>
-          </div>
+          <div class="img-card" data-pop="images/app1.jpg" data-cap="Recommendation Letter"><img src="images/app1.jpg"><div class="cap">Recommendation Letter</div></div>
+          <div class="img-card" data-pop="images/app2.jpg" data-cap="Certificate of Completion"><img src="images/app2.jpg"><div class="cap">Certificate of Completion</div></div>
+          <div class="img-card" data-pop="images/app4.jpg" data-cap="Daily Time Record"><img src="images/app4.jpg"><div class="cap">Daily Time Record</div></div>
         </div>
 
-        <h4 id="links" style="margin-top:22px;">Links</h4>
+        <h4 id="links">Links</h4>
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th style="width:26%;">Profile</th>
-                <th>Link</th>
-              </tr>
-            </thead>
             <tbody>
               <tr>
                 <td><strong>LinkedIn</strong></td>
                 <td>
-                  <a href="https://www.linkedin.com/in/roel-de-los-reyes-7a76412b6/" target="_blank" rel="noopener">
+                  <a href="https://www.linkedin.com/in/roel-de-los-reyes-7a76412b6/" target="_blank">
                     https://www.linkedin.com/in/roel-de-los-reyes-7a76412b6/
                   </a>
                 </td>
-              </tr>
-              <tr>
-                <td><strong>Jobs180</strong></td>
-                <td><a href="#" onclick="return false;">[Insert Jobs180 Profile Link]</a></td>
               </tr>
             </tbody>
           </table>
@@ -1542,11 +1516,7 @@
     </main>
   </div>
 
-  <!-- Image Modal -->
-  <div class="
-
-
-    <!-- Image Modal -->
+  <!-- ===================== IMAGE MODAL ===================== -->
   <div class="modal" id="imgModal">
     <div class="modal-box">
       <div class="modal-bar">
@@ -1557,87 +1527,80 @@
           <button class="iconbtn" id="modalClose">✕</button>
         </div>
       </div>
-      <img src="" alt="Preview" class="modal-img" id="modalImg">
+      <img src="" class="modal-img" id="modalImg">
     </div>
   </div>
 
+  <!-- ===================== SCRIPTS ===================== -->
   <script>
-    /* ================= THEME TOGGLE ================= */
-    const darkBtn = document.getElementById("darkBtn");
-    const lightBtn = document.getElementById("lightBtn");
-
+    /* THEME */
     darkBtn.onclick = () => document.body.classList.remove("theme-light");
     lightBtn.onclick = () => document.body.classList.add("theme-light");
 
-    /* ================= IMAGE MODAL ================= */
+    /* MODAL */
     const modal = document.getElementById("imgModal");
     const modalImg = document.getElementById("modalImg");
     const modalTitle = document.getElementById("modalTitle");
-    const modalClose = document.getElementById("modalClose");
     const modalPrev = document.getElementById("modalPrev");
     const modalNext = document.getElementById("modalNext");
+    const modalClose = document.getElementById("modalClose");
 
     let modalImages = [];
     let modalIndex = 0;
 
-    function openModal(images, index){
-      modalImages = images;
+    function openModal(items, index){
+      modalImages = items;
       modalIndex = index;
       updateModal();
       modal.classList.add("open");
+      document.body.classList.add("modal-lock");
     }
 
     function updateModal(){
-      const item = modalImages[modalIndex];
-      modalImg.src = item.src;
-      modalTitle.textContent = item.cap || "Image Preview";
+      modalImg.src = modalImages[modalIndex].src;
+      modalTitle.textContent = modalImages[modalIndex].cap || "Image Preview";
     }
 
-    modalClose.onclick = () => modal.classList.remove("open");
-    modal.onclick = e => { if(e.target === modal) modal.classList.remove("open"); };
+    modalClose.onclick = () => closeModal();
+    modal.onclick = e => { if(e.target === modal) closeModal(); };
+
+    function closeModal(){
+      modal.classList.remove("open");
+      document.body.classList.remove("modal-lock");
+    }
 
     modalPrev.onclick = () => {
-      if(modalIndex > 0){
-        modalIndex--;
-        updateModal();
-      }
+      modalIndex = (modalIndex - 1 + modalImages.length) % modalImages.length;
+      updateModal();
     };
 
     modalNext.onclick = () => {
-      if(modalIndex < modalImages.length - 1){
-        modalIndex++;
-        updateModal();
-      }
+      modalIndex = (modalIndex + 1) % modalImages.length;
+      updateModal();
     };
 
-    /* Collect clickable images */
-    document.querySelectorAll(".img-card, .gitem").forEach(group => {
-      group.addEventListener("click", e => {
-        const container = group.closest(".img-grid, .gallery");
-        const items = Array.from(container.querySelectorAll(".img-card, .gitem"))
-          .map(el => ({
-            src: el.dataset.pop,
-            cap: el.dataset.cap || ""
-          }));
-
-        const index = items.findIndex(i => i.src === group.dataset.pop);
-        openModal(items, index);
-      });
+    document.addEventListener("keydown", e=>{
+      if(!modal.classList.contains("open")) return;
+      if(e.key==="Escape") closeModal();
+      if(e.key==="ArrowLeft") modalPrev.click();
+      if(e.key==="ArrowRight") modalNext.click();
     });
 
-    /* ================= GALLERY ARROWS ================= */
-    document.querySelectorAll("[data-scroll-left]").forEach(btn => {
-      btn.onclick = () => {
-        const g = document.querySelector(btn.dataset.scrollLeft);
-        g.scrollLeft -= 380;
+    document.querySelectorAll(".img-card, .gitem").forEach(el=>{
+      el.onclick = ()=>{
+        const container = el.closest(".img-grid, .gallery");
+        const items = [...container.querySelectorAll(".img-card, .gitem")]
+          .map(i=>({src:i.dataset.pop, cap:i.dataset.cap}));
+        openModal(items, items.findIndex(i=>i.src===el.dataset.pop));
       };
     });
 
-    document.querySelectorAll("[data-scroll-right]").forEach(btn => {
-      btn.onclick = () => {
-        const g = document.querySelector(btn.dataset.scrollRight);
-        g.scrollLeft += 380;
-      };
+    /* GALLERY SCROLL */
+    document.querySelectorAll("[data-scroll-left]").forEach(b=>{
+      b.onclick = ()=> document.querySelector(b.dataset.scrollLeft).scrollLeft -= 380;
+    });
+    document.querySelectorAll("[data-scroll-right]").forEach(b=>{
+      b.onclick = ()=> document.querySelector(b.dataset.scrollRight).scrollLeft += 380;
     });
   </script>
 </body>
