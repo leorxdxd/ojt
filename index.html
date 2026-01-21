@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Practicum Report | Roel S. Delos Reyes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --primary: #1f2937;
+    --accent: #2563eb;
+    --bg: #f8fafc;
+    --card: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--primary);
+}
+
+/* ===== Layout ===== */
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+    width: 280px;
+    background: #111827;
+    color: #fff;
+    padding: 25px;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sidebar a {
+    display: block;
+    color: #d1d5db;
+    text-decoration: none;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.sidebar a:hover {
+    color: #fff;
+}
+
+/* ===== Main Content ===== */
+.content {
+    margin-left: 280px;
+    padding: 50px;
+    max-width: 1100px;
+}
+
+/* ===== Cards ===== */
+.card {
+    background: var(--card);
+    padding: 50px;
+    border-radius: 14px;
+    margin-bottom: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* ===== Typography ===== */
+h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 42px;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Merriweather', serif;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 10px;
+    margin-top: 40px;
+}
+
+h3 {
+    margin-top: 25px;
+}
+
+p {
+    line-height: 1.8;
+    text-align: justify;
+}
+
+/* ===== Cover ===== */
+.cover {
+    text-align: center;
+}
+
+.cover h1 {
+    margin-bottom: 10px;
+}
+
+.cover p {
+    text-align: center;
+}
+
+/* ===== Images ===== */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.image-grid img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* ===== Footer ===== */
+footer {
+    text-align: center;
+    margin-top: 80px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+    .sidebar {
+        display: none;
+    }
+    .content {
+        margin-left: 0;
+        padding: 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<!-- ===== SIDEBAR ===== -->
+<nav class="sidebar">
+    <h2>Practicum Report</h2>
+    <a href="#cover">Cover Page</a>
+    <a href="#intro">I. Introduction</a>
+    <a href="#org">II. Organization Profile</a>
+    <a href="#training">III. Training / Project</a>
+    <a href="#obs">IV. Observations</a>
+    <a href="#anec">V. Anecdotal Reports</a>
+    <a href="#appendix">VI. Appendices</a>
+</nav>
+
+<!-- ===== CONTENT ===== -->
+<main class="content">
+
+<!-- COVER -->
+<section class="card cover" id="cover">
+    <h1>PRACTICUM REPORT</h1>
+    <p>(300 Hours)</p>
+
+    <p>
+        A Portfolio Presented to the Faculty of the<br>
+        <strong>College of Information Technology</strong><br>
+        Southville International School and Colleges
+    </p>
+
+    <p>
+        In Partial Fulfillment of the Requirements<br>
+        for the Degree of<br>
+        <strong>Bachelor of Science in Information Technology</strong>
+    </p>
+
+    <p><strong>Delos Reyes, Roel S.</strong></p>
+
+    <p>
+        Submitted to:<br>
+        <strong>Dr. Aris E. Ignacio</strong>
+    </p>
+
+    <p><strong>November 2025</strong></p>
+</section>
+
+<!-- INTRODUCTION -->
+<section class="card" id="intro">
+    <h2>I. Introduction</h2>
+
+    <h3>Rationale</h3>
+    <p>
+        On-the-Job Training provides real-world exposure for students to explore
+        professional environments, understand workplace culture, and apply
+        academic knowledge in real scenarios.
+    </p>
+
+    <h3>Work / Training / Project Expectations</h3>
+    <p>
+        The practicum aims to develop technical competence, professional behavior,
+        and practical IT skills relevant to industry standards.
+    </p>
+</section>
+
+<!-- ORGANIZATION -->
+<section class="card" id="org">
+    <h2>II. Organization Profile</h2>
+
+    <h3>Background</h3>
+    <p>
+        Southville International School Affiliated with Foreign Universities (SISFU)
+        is the first transnational university in the Philippines, delivering
+        globally competitive education.
+    </p>
+
+    <h3>Nature of Business</h3>
+    <p>
+        Higher education institution offering international undergraduate and
+        graduate programs.
+    </p>
+
+    <h3>Organization Images</h3>
+    <div class="image-grid">
+        <img src="images/practicum1.jpg">
+        <img src="images/practicum2.jpg">
+        <img src="images/practicum3.jpg">
+    </div>
+</section>
+
+<!-- TRAINING -->
+<section class="card" id="training">
+    <h2>III. Training / Project Profile</h2>
+
+    <h3>Description</h3>
+    <p>
+        The practicum involved hands-on participation in IT support, documentation,
+        and system-related tasks.
+    </p>
+
+    <h3>Milestones</h3>
+    <ul>
+        <li>Orientation</li>
+        <li>Task Execution</li>
+        <li>Project Completion</li>
+    </ul>
+</section>
+
+<!-- OBSERVATIONS -->
+<section class="card" id="obs">
+    <h2>IV. Observations</h2>
+
+    <p>
+        The organization demonstrates strong academic leadership, efficient systems,
+        and professional workplace culture.
+    </p>
+</section>
+
+<!-- ANECDOTAL -->
+<section class="card" id="anec">
+    <h2>V. Anecdotal Reports</h2>
+
+    <h3>Daily / Weekly / Monthly</h3>
+    <p>[Insert reports]</p>
+
+    <h3>Summary of Gained Experience</h3>
+    <p>
+        The practicum strengthened my technical skills, communication abilities,
+        and understanding of real-world IT operations.
+    </p>
+</section>
+
+<!-- APPENDIX -->
+<section class="card" id="appendix">
+    <h2>VI. Appendices</h2>
+
+    <ul>
+        <li>Certificate of Completion</li>
+        <li>Attendance Records</li>
+        <li>Updated Resume</li>
+        <li>
+            LinkedIn:
+            <a href="https://www.linkedin.com/in/roel-de-los-reyes-7a76412b6/" target="_blank">
+                View Profile
+            </a>
+        </li>
+    </ul>
+</section>
+
+<footer>
+    © 2025 – Roel S. Delos Reyes
+</footer>
+
+</main>
+</div>
+
+</body>
+</html>
