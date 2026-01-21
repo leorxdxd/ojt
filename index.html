@@ -3,67 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="theme-color" content="#0b1220"/>
   <title>Practicum Report | Roel S. Delos Reyes</title>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet"/>
-
   <style>
-    /* =========================================================
-      PRACTICUM REPORT PORTFOLIO (Single-File)
-      - Sidebar menu with dropdowns (Table of Contents)
-      - Sticky top bar, reading progress, search, print, theme
-      - Section cards, timelines, tables, callouts
-      - Image gallery with upload area (local preview only)
-      - Uses your /images/ folder for default images
-      - Responsive + accessible
-    ========================================================= */
-
     :root{
-      --bg: #0b1220;
-      --bg2:#0e172a;
-      --card:#0f1b33;
-      --card2:#0d1930;
-      --muted:#8aa2c0;
-      --text:#e6eefc;
-      --soft:#cfe0ff;
-      --line: rgba(255,255,255,.10);
+      /* Dark theme */
+      --bg:#0b0f17;
+      --panel:#0f1623;
+      --card:#121b2b;
+      --line:rgba(255,255,255,.12);
+      --text:#e8eefc;
+      --muted:#a7b2c8;
+      --accent:#7aa2ff;
 
-      --accent:#5aa2ff;
-      --accent2:#8b5cf6;
-      --good:#22c55e;
-      --warn:#f59e0b;
-      --bad:#ef4444;
+      --radius:14px;
+      --shadow:0 10px 25px rgba(0,0,0,.35);
 
-      --shadow: 0 12px 40px rgba(0,0,0,.35);
-      --radius: 18px;
-      --radius2: 14px;
+      --font: Arial, Helvetica, sans-serif;
 
-      --font: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      --serif:"Merriweather", Georgia, serif;
-
-      --sidebarW: 320px;
-      --topbarH: 70px;
-
-      --focus: 0 0 0 4px rgba(90,162,255,.25);
-
-      --max: 1200px;
+      --sidebarW: 310px;
+      --pageW: 8.5in;     /* Letter width */
+      --pageMinH: 11in;   /* Letter height for print */
+      --pagePad: 0.75in;  /* Comfortable spacing */
     }
 
-    /* Light theme */
-    body[data-theme="light"]{
-      --bg:#f6f8ff;
-      --bg2:#eef3ff;
-      --card:#ffffff;
-      --card2:#ffffff;
-      --muted:#4a607a;
-      --text:#0b1220;
-      --soft:#0b1220;
-      --line: rgba(11,18,32,.12);
-      --shadow: 0 10px 30px rgba(11,18,32,.10);
+    /* Light theme (darker / softer, not bright white) */
+    body.theme-light{
+      --bg:#e2e6ef;          /* darker than plain white */
+      --panel:#d7dde9;       /* darker panel */
+      --card:#eef1f7;        /* card surface */
+      --line:rgba(20,25,35,.18);
+      --text:#141923;
+      --muted:#374151;
+      --accent:#1d4ed8;
+      --shadow:0 10px 25px rgba(20,25,35,.12);
     }
 
     *{ box-sizing:border-box; }
@@ -71,563 +44,228 @@
     body{
       margin:0;
       font-family:var(--font);
+      background:var(--bg);
       color:var(--text);
-      background:
-        radial-gradient(1100px 600px at 10% 0%, rgba(90,162,255,.20), transparent 55%),
-        radial-gradient(900px 500px at 80% 10%, rgba(139,92,246,.18), transparent 50%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-      min-height:100vh;
+      line-height:1.75;
     }
 
     a{ color:inherit; text-decoration:none; }
-    a:focus, button:focus, input:focus, textarea:focus, summary:focus{
-      outline:none; box-shadow:var(--focus);
-      border-radius:10px;
-    }
+    a:hover{ color:var(--accent); }
 
-    ::selection{ background: rgba(90,162,255,.30); }
+    /* Layout */
+    .wrap{ display:flex; min-height:100vh; }
 
-    /* ========= Utilities ========= */
-    .container{ width:100%; max-width:var(--max); margin:0 auto; }
-    .row{ display:flex; gap:18px; }
-    .stack{ display:flex; flex-direction:column; gap:14px; }
-    .muted{ color:var(--muted); }
-    .small{ font-size:13px; }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 12px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background: rgba(255,255,255,.06);
-      backdrop-filter: blur(10px);
-      font-size:13px;
-    }
-    body[data-theme="light"] .pill{
-      background: rgba(11,18,32,.03);
-    }
-
-    /* ========= Layout ========= */
-    .app{
-      display:flex;
-      min-height:100vh;
-    }
-
-    /* ========= Sidebar ========= */
+    /* Sidebar */
     .sidebar{
       width:var(--sidebarW);
       position:fixed;
       top:0; left:0;
       height:100vh;
-      padding:22px 18px 22px 18px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0)),
-        rgba(9,14,28,.75);
-      border-right:1px solid var(--line);
-      backdrop-filter: blur(18px);
       overflow:auto;
-      z-index:40;
-    }
-    body[data-theme="light"] .sidebar{
-      background:
-        linear-gradient(180deg, rgba(11,18,32,.03), rgba(11,18,32,0)),
-        rgba(255,255,255,.85);
+      background:var(--panel);
+      border-right:1px solid var(--line);
+      padding:22px 18px;
     }
 
     .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:10px 10px;
-      border-radius:16px;
       border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      box-shadow: 0 10px 25px rgba(0,0,0,.18);
+      border-radius: var(--radius);
+      background:var(--card);
+      box-shadow: var(--shadow);
+      padding:14px 14px;
+      margin-bottom:16px;
     }
-    body[data-theme="light"] .brand{
-      background: rgba(11,18,32,.02);
-      box-shadow: 0 10px 25px rgba(11,18,32,.08);
-    }
-    .brand .logo{
-      width:44px; height:44px;
-      border-radius:14px;
-      background:
-        radial-gradient(16px 16px at 30% 30%, rgba(255,255,255,.55), rgba(255,255,255,0) 60%),
-        linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 12px 28px rgba(90,162,255,.22);
-      display:grid;
-      place-items:center;
-      flex:0 0 auto;
-    }
-    .brand .logo svg{ width:22px; height:22px; color:white; opacity:.95; }
-
-    .brand .title{
-      display:flex; flex-direction:column;
-      line-height:1.1;
-    }
-    .brand .title strong{
-      font-size:14px;
+    .brand h1{
+      margin:0;
+      font-size:18px;
       letter-spacing:.2px;
+      font-weight:700;
     }
-    .brand .title span{
-      font-size:12px;
+    .brand p{
+      margin:6px 0 0;
       color:var(--muted);
+      font-size:12.5px;
     }
 
-    .sidebar .controls{
-      margin-top:14px;
-      display:flex; gap:10px;
-      align-items:center;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
+    .theme-toggle{
+      display:flex;
       gap:10px;
+      margin:12px 0 6px;
+    }
+    .theme-toggle button{
+      width:100%;
+      border:1px solid var(--line);
+      background:transparent;
+      color:var(--text);
       padding:10px 12px;
       border-radius:12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color:var(--text);
       cursor:pointer;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      user-select:none;
+      font-weight:700;
+      font-size:13px;
     }
-    body[data-theme="light"] .btn{
-      background: rgba(11,18,32,.03);
-    }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); }
-    .btn:active{ transform: translateY(0px); }
-    .btn svg{ width:16px; height:16px; opacity:.95; }
-    .btn.primary{
-      border-color: rgba(90,162,255,.35);
-      background: linear-gradient(135deg, rgba(90,162,255,.22), rgba(139,92,246,.15));
-    }
-
-    .searchBox{
-      margin-top:12px;
-      position:relative;
-    }
-    .searchBox input{
-      width:100%;
-      padding:12px 12px 12px 40px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color:var(--text);
-      outline:none;
-    }
-    body[data-theme="light"] .searchBox input{
-      background: rgba(11,18,32,.03);
-    }
-    .searchBox svg{
-      position:absolute;
-      top:50%;
-      left:12px;
-      transform:translateY(-50%);
-      width:18px; height:18px;
-      opacity:.8;
-      pointer-events:none;
-    }
-    .searchHint{
-      margin-top:10px;
-      font-size:12px;
-      color:var(--muted);
-      padding:0 6px;
-    }
-
-    .toc{
-      margin-top:16px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+    .theme-toggle button:hover{
+      border-color: rgba(122,162,255,.35);
+      color:var(--accent);
     }
 
     details.menu{
       border:1px solid var(--line);
-      border-radius:16px;
-      background: rgba(255,255,255,.04);
+      border-radius: var(--radius);
+      background: var(--card);
+      margin:10px 0;
       overflow:hidden;
-    }
-    body[data-theme="light"] details.menu{
-      background: rgba(11,18,32,.02);
     }
     details.menu summary{
       list-style:none;
       cursor:pointer;
+      padding:12px 12px;
+      font-weight:700;
+      font-size:13px;
+      letter-spacing:.2px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:10px;
-      padding:12px 12px;
-      font-weight:600;
-      font-size:13px;
-      letter-spacing:.2px;
     }
     details.menu summary::-webkit-details-marker{ display:none; }
     .caret{
       width:18px; height:18px;
-      opacity:.85;
+      opacity:.8;
       transition: transform .2s ease;
     }
     details[open] .caret{ transform: rotate(180deg); }
 
-    .menuLinks{
-      padding:0 8px 10px 8px;
+    .links{
+      padding:0 10px 12px 10px;
       display:flex;
       flex-direction:column;
       gap:4px;
     }
-    .menuLinks a{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 10px;
+    .links a{
+      padding:9px 10px;
       border-radius:12px;
-      font-size:13px;
-      color:var(--soft);
-      opacity:.92;
       border:1px solid transparent;
-      transition: background .12s ease, border-color .12s ease, transform .12s ease;
-    }
-    body[data-theme="light"] .menuLinks a{ color: var(--text); opacity:.88; }
-    .menuLinks a:hover{
-      background: rgba(90,162,255,.10);
-      border-color: rgba(90,162,255,.18);
-      transform: translateX(1px);
-      opacity:1;
-    }
-    .dot{
-      width:8px; height:8px;
-      border-radius:999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 8px 16px rgba(90,162,255,.22);
-      flex:0 0 auto;
-    }
-
-    .sidebarFooter{
-      margin-top:18px;
-      padding:12px 10px;
-      border-radius:16px;
-      border:1px dashed rgba(255,255,255,.18);
       color:var(--muted);
-      font-size:12px;
+      font-size:13px;
     }
-    body[data-theme="light"] .sidebarFooter{
-      border-color: rgba(11,18,32,.18);
+    .links a:hover{
+      color:var(--text);
+      background: rgba(122,162,255,.10);
+      border-color: rgba(122,162,255,.18);
     }
 
-    /* ========= Mobile Nav Toggle ========= */
-    .mobileToggle{
-      display:none;
-      position:fixed;
-      top:14px; left:14px;
-      z-index:60;
-    }
-    .mobileBackdrop{
-      display:none;
-      position:fixed;
-      inset:0;
-      background: rgba(0,0,0,.45);
-      z-index:50;
-    }
-    body.sidebar-open .mobileBackdrop{ display:block; }
-    body.sidebar-open .sidebar{ transform: translateX(0); }
-
-    /* ========= Main ========= */
+    /* Main */
     .main{
       margin-left:var(--sidebarW);
       width:calc(100% - var(--sidebarW));
-      min-height:100vh;
+      padding:22px 16px 60px;
     }
 
-    /* ========= Topbar ========= */
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:30;
-      height:var(--topbarH);
-      border-bottom:1px solid var(--line);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0)),
-        rgba(9,14,28,.55);
-      backdrop-filter: blur(18px);
-    }
-    body[data-theme="light"] .topbar{
-      background:
-        linear-gradient(180deg, rgba(11,18,32,.04), rgba(11,18,32,0)),
-        rgba(255,255,255,.75);
-    }
-    .topbarInner{
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      padding:0 18px;
-    }
-    .topbarLeft{
-      display:flex; align-items:center; gap:12px;
-      min-width: 0;
-    }
-    .crumb{
-      display:flex; flex-direction:column; gap:2px;
-      min-width:0;
-    }
-    .crumb strong{
-      font-size:14px;
-      letter-spacing:.2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .crumb span{
-      font-size:12px;
-      color:var(--muted);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .topbarRight{
-      display:flex; align-items:center; gap:10px;
-    }
-
-    /* Progress bar */
-    .progressWrap{
-      position:absolute;
-      left:0; right:0; bottom:0;
-      height:3px;
-      background: transparent;
-    }
-    .progress{
-      height:3px;
-      width:0%;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 20px rgba(90,162,255,.35);
-      transition: width .08s linear;
-    }
-
-    /* ========= Sections ========= */
-    .content{
-      padding:26px 18px 70px;
-    }
-    .section{
+    /* “Letter page” container */
+    .page{
+      width: min(100%, var(--pageW));
+      margin: 0 auto 22px;     /* more spacing between pages */
+      background: var(--panel);
       border:1px solid var(--line);
       border-radius: var(--radius);
-      background:
-        radial-gradient(500px 220px at 10% 0%, rgba(90,162,255,.12), transparent 55%),
-        radial-gradient(500px 220px at 85% 0%, rgba(139,92,246,.10), transparent 55%),
-        rgba(255,255,255,.03);
       box-shadow: var(--shadow);
-      padding:26px;
-      margin:0 auto 18px;
-      max-width:var(--max);
-    }
-    body[data-theme="light"] .section{
-      background:
-        radial-gradient(500px 220px at 10% 0%, rgba(90,162,255,.10), transparent 55%),
-        radial-gradient(500px 220px at 85% 0%, rgba(139,92,246,.08), transparent 55%),
-        rgba(255,255,255,.90);
+      padding: var(--pagePad);
     }
 
-    .hero{
-      padding:34px 26px;
-      position:relative;
-      overflow:hidden;
+    .cover{ text-align:center; }
+    .cover h2{
+      margin:0;
+      font-size:28px;
+      letter-spacing:.4px;
+      font-weight:800;
     }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:18px;
-      align-items:stretch;
-    }
-
-    .hero h1{
-      font-family:var(--serif);
-      font-weight:700;
-      letter-spacing:.2px;
-      font-size:42px;
-      margin:0 0 8px;
-      line-height:1.1;
-    }
-    .hero h2{
-      font-family:var(--font);
-      font-weight:600;
-      font-size:16px;
-      margin:0 0 12px;
+    .cover .sub{
+      margin:10px 0 0;
       color:var(--muted);
+      font-size:14px;
     }
-    .hero .meta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:14px;
-    }
-
-    .heroCard{
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.04);
-      padding:16px;
+    .cover .block{
+      margin-top:18px;
       display:flex;
       flex-direction:column;
-      gap:12px;
-      justify-content:space-between;
-      min-height: 210px;
-    }
-    body[data-theme="light"] .heroCard{
-      background: rgba(11,18,32,.02);
+      gap:10px;            /* more space */
+      color:var(--text);
+      font-size:14px;
     }
 
-    .heroCard .miniTitle{
-      font-size:13px;
-      font-weight:700;
-      letter-spacing:.4px;
-      text-transform:uppercase;
-      color:var(--muted);
-    }
-    .heroCard .big{
-      font-size:20px;
+    .section-title{
+      margin:0 0 14px;
+      font-size:22px;
+      padding-bottom:10px;
+      border-bottom:1px solid var(--line);
       font-weight:800;
       letter-spacing:.2px;
-      line-height:1.2;
     }
 
-    .linkRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .linkBtn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      font-weight:600;
-      font-size:13px;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-    }
-    body[data-theme="light"] .linkBtn{
-      background: rgba(11,18,32,.03);
-    }
-    .linkBtn:hover{
-      transform: translateY(-1px);
-      background: rgba(90,162,255,.10);
-      border-color: rgba(90,162,255,.20);
-    }
-    .linkBtn svg{ width:16px; height:16px; opacity:.95; }
-
-    .sectionTitle{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:10px;
-      padding-bottom:12px;
-      border-bottom:1px solid var(--line);
-      margin-bottom:16px;
-    }
-    .sectionTitle h2{
-      margin:0;
-      font-family:var(--serif);
-      font-size:26px;
+    h4{
+      margin:22px 0 10px;  /* more space */
+      font-size:16px;
       letter-spacing:.2px;
-    }
-    .sectionTitle .tag{
-      font-size:12px;
-      color:var(--muted);
-      padding:7px 10px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background: rgba(255,255,255,.04);
-    }
-    body[data-theme="light"] .sectionTitle .tag{
-      background: rgba(11,18,32,.02);
+      font-weight:800;
     }
 
-    h3{
-      margin:18px 0 10px;
-      font-size:18px;
-      letter-spacing:.2px;
-    }
-    p{
-      margin:0 0 12px;
-      line-height:1.85;
-      font-size:15px;
-      color: var(--soft);
-    }
-    body[data-theme="light"] p{ color: var(--text); opacity:.90; }
+    p{ margin:0 0 14px; }
+    .muted{ color:var(--muted); }
 
-    ul{
-      margin:0 0 12px;
-      padding-left:18px;
-      line-height:1.85;
-    }
-    li{ margin:6px 0; color: var(--soft); }
-    body[data-theme="light"] li{ color: var(--text); opacity:.90; }
+    ul{ margin:0 0 14px; padding-left:18px; }
+    li{ margin:7px 0; }
 
-    .grid2{
+    .two-col{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:16px;
+      gap:18px; /* more space */
+      margin-top:12px;
     }
-    .card{
+
+    .box{
       border:1px solid var(--line);
-      border-radius: var(--radius2);
-      background: rgba(255,255,255,.03);
+      border-radius: 12px;
+      background: var(--card);
       padding:16px;
     }
-    body[data-theme="light"] .card{
-      background: rgba(11,18,32,.02);
-    }
 
-    .callouts{
+    /* Images (bigger) */
+    .img-grid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-      margin-top:14px;
+      gap:14px;
+      margin-top:12px;
     }
-    .callout{
+    .img-card{
       border:1px solid var(--line);
-      border-radius: 16px;
-      padding:14px;
-      background: rgba(255,255,255,.03);
-      position:relative;
+      border-radius:12px;
       overflow:hidden;
+      background: var(--card);
+      cursor:pointer;
     }
-    body[data-theme="light"] .callout{
-      background: rgba(11,18,32,.02);
+    .img-card img{
+      display:block;
+      width:100%;
+      height:220px;  /* bigger */
+      object-fit:cover;
+      background: rgba(255,255,255,.03);
     }
-    .callout::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background: radial-gradient(220px 120px at 0% 0%, rgba(90,162,255,.18), transparent 60%),
-                  radial-gradient(220px 120px at 100% 0%, rgba(139,92,246,.16), transparent 60%);
-      opacity:.9;
-      pointer-events:none;
+    .img-card .cap{
+      padding:10px 12px;
+      font-size:12.5px;
+      color:var(--muted);
     }
-    .callout > *{ position:relative; }
-    .callout strong{ display:block; font-size:12px; letter-spacing:.5px; text-transform:uppercase; color:var(--muted); }
-    .callout span{ display:block; margin-top:8px; font-size:16px; font-weight:800; }
 
-    /* ========= Tables ========= */
-    .tableWrap{
-      overflow:auto;
-      border-radius: 16px;
+    /* Tables */
+    .table-wrap{
       border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
-    }
-    body[data-theme="light"] .tableWrap{
-      background: rgba(11,18,32,.02);
+      border-radius:12px;
+      overflow:auto;
+      background: var(--card);
+      margin-top:12px;
     }
     table{
       width:100%;
-      border-collapse:separate;
-      border-spacing:0;
+      border-collapse:collapse;
       min-width: 720px;
     }
     th, td{
@@ -635,7 +273,6 @@
       border-bottom:1px solid var(--line);
       vertical-align:top;
       font-size:14px;
-      line-height:1.65;
     }
     th{
       text-align:left;
@@ -644,1729 +281,924 @@
       text-transform:uppercase;
       color:var(--muted);
       background: rgba(255,255,255,.03);
-      position:sticky;
-      top:0;
-      z-index:1;
-    }
-    body[data-theme="light"] th{
-      background: rgba(11,18,32,.02);
     }
     tr:last-child td{ border-bottom:none; }
 
-    /* ========= Timeline ========= */
-    .timeline{
-      position:relative;
-      padding-left:24px;
-      margin-top:10px;
-    }
-    .timeline::before{
-      content:"";
-      position:absolute;
-      top:0; bottom:0;
-      left:8px;
-      width:2px;
-      background: linear-gradient(180deg, rgba(90,162,255,.9), rgba(139,92,246,.7));
-      opacity:.6;
-      border-radius:999px;
-    }
-    .tItem{
-      position:relative;
-      padding:12px 14px;
-      margin:0 0 12px;
+    /* Sliding galleries */
+    .gallery-wrap{
+      margin-top:12px;
       border:1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(255,255,255,.03);
+      border-radius:12px;
+      background: var(--card);
+      padding:14px;
     }
-    body[data-theme="light"] .tItem{
-      background: rgba(11,18,32,.02);
-    }
-    .tItem::before{
-      content:"";
-      position:absolute;
-      left:-23px;
-      top:18px;
-      width:14px; height:14px;
-      border-radius:999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 10px 20px rgba(90,162,255,.25);
-      border:2px solid rgba(255,255,255,.18);
-    }
-    body[data-theme="light"] .tItem::before{
-      border-color: rgba(11,18,32,.10);
-    }
-    .tItem strong{ display:block; font-size:14px; margin-bottom:4px; }
-    .tItem span{ color:var(--muted); font-size:12px; display:block; margin-bottom:8px; }
-    .tItem p{ margin:0; }
-
-    /* ========= Image Gallery ========= */
-    .gallery{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-    }
-    .imgCard{
-      border:1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(255,255,255,.03);
-      overflow:hidden;
-      min-height: 150px;
+    .gallery-head{
       display:flex;
-      flex-direction:column;
-    }
-    body[data-theme="light"] .imgCard{
-      background: rgba(11,18,32,.02);
-    }
-    .imgCard img{
-      width:100%;
-      height: 170px;
-      object-fit:cover;
-      display:block;
-      background: rgba(255,255,255,.02);
-    }
-    .imgCard .cap{
-      padding:10px 12px;
-      font-size:13px;
-      color:var(--muted);
-      display:flex;
-      justify-content:space-between;
-      gap:8px;
-      align-items:center;
-    }
-    .badge{
-      font-size:11px;
-      padding:6px 8px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      color:var(--muted);
-    }
-    body[data-theme="light"] .badge{
-      background: rgba(11,18,32,.02);
-    }
-
-    /* Upload area */
-    .uploadArea{
-      border:1px dashed rgba(255,255,255,.22);
-      border-radius: 18px;
-      padding:16px;
-      background: rgba(255,255,255,.03);
-    }
-    body[data-theme="light"] .uploadArea{
-      border-color: rgba(11,18,32,.22);
-      background: rgba(11,18,32,.02);
-    }
-    .uploadRow{
-      display:flex;
-      gap:12px;
       align-items:center;
       justify-content:space-between;
-      flex-wrap:wrap;
+      gap:12px;
+      margin-bottom:10px;
     }
-    .uploadArea input[type="file"]{
-      width: 260px;
-      max-width: 100%;
-      padding:10px;
-      border-radius: 12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      color:var(--text);
+    .gallery-title{
+      font-weight:800;
+      font-size:14px;
+      letter-spacing:.2px;
     }
-    body[data-theme="light"] .uploadArea input[type="file"]{
-      background: rgba(11,18,32,.03);
-      color: var(--text);
-    }
-    .hint{
-      font-size:12px;
-      color:var(--muted);
-      margin-top:10px;
-      line-height:1.6;
-    }
-
-    /* ========= Footer ========= */
-    footer{
-      max-width:var(--max);
-      margin:22px auto 0;
-      padding:16px 18px;
-      color:var(--muted);
-      font-size:13px;
+    .gallery-controls{
       display:flex;
       gap:10px;
-      justify-content:space-between;
-      flex-wrap:wrap;
+    }
+    .gbtn{
+      border:1px solid var(--line);
+      background:transparent;
+      color:var(--text);
+      padding:8px 10px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:13px;
+      line-height:1;
+    }
+    .gbtn:hover{
+      border-color: rgba(122,162,255,.35);
+      color:var(--accent);
     }
 
-    /* ========= Back to top ========= */
-    .toTop{
+    .gallery{
+      display:flex;
+      gap:14px;
+      overflow:hidden;            /* hide extra */
+      scroll-behavior:smooth;
+    }
+    .gitem{
+      flex:0 0 auto;
+      width: 320px;              /* big preview size */
+      border:1px solid var(--line);
+      border-radius:12px;
+      overflow:hidden;
+      background: rgba(255,255,255,.02);
+      cursor:pointer;
+    }
+    .gitem img{
+      width:100%;
+      height: 220px;
+      object-fit:cover;
+      display:block;
+    }
+    .gcap{
+      padding:10px 12px;
+      font-size:12.5px;
+      color:var(--muted);
+    }
+
+    /* Modal (image popup) */
+    .modal{
       position:fixed;
-      right:18px;
-      bottom:18px;
-      z-index:25;
+      inset:0;
       display:none;
+      align-items:center;
+      justify-content:center;
+      background: rgba(0,0,0,.72);
+      z-index:999;
+      padding:18px;
     }
-    .toTop.show{ display:inline-flex; }
+    .modal.open{ display:flex; }
+    .modal-box{
+      width:min(980px, 96vw);
+      background: var(--panel);
+      border:1px solid var(--line);
+      border-radius:14px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .modal-bar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 12px;
+      border-bottom:1px solid var(--line);
+      background: var(--card);
+    }
+    .modal-title{
+      font-weight:800;
+      font-size:13px;
+      color:var(--muted);
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      max-width: 72%;
+    }
+    .modal-actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .iconbtn{
+      border:1px solid var(--line);
+      background:transparent;
+      color:var(--text);
+      padding:8px 10px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:900;
+      font-size:14px;
+      line-height:1;
+    }
+    .iconbtn:hover{ color:var(--accent); border-color: rgba(122,162,255,.35); }
 
-    /* ========= Print styles ========= */
-    @media print{
-      .sidebar, .topbar, .toTop, .mobileToggle, .mobileBackdrop{ display:none !important; }
-      .main{ margin-left:0 !important; width:100% !important; }
-      body{ background:white !important; color:#111 !important; }
-      .section{ box-shadow:none !important; background:white !important; }
-      a{ text-decoration:none !important; }
-      .badge, .pill{ border-color:#ddd !important; background:#f6f6f6 !important; }
+    .modal-img{
+      width:100%;
+      max-height: 78vh;
+      object-fit:contain;
+      display:block;
+      background: rgba(0,0,0,.18);
     }
 
-    /* ========= Responsive ========= */
-    @media (max-width: 1100px){
-      .heroGrid{ grid-template-columns: 1fr; }
-      .callouts{ grid-template-columns: 1fr; }
-      .gallery{ grid-template-columns: repeat(2, 1fr); }
+    /* Footer */
+    .footer{
+      width: min(100%, var(--pageW));
+      margin: 0 auto;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+      padding: 10px 0 0;
     }
-    @media (max-width: 900px){
+
+    /* Responsive */
+    @media (max-width: 920px){
       .sidebar{
-        transform: translateX(-110%);
-        transition: transform .2s ease;
-        width: min(92vw, 360px);
-      }
-      .main{
-        margin-left:0;
+        position:sticky;
+        height:auto;
         width:100%;
+        border-right:none;
+        border-bottom:1px solid var(--line);
       }
-      .mobileToggle{ display:inline-flex; }
-      .content{ padding-top: 18px; }
+      .main{ margin-left:0; width:100%; }
+      .two-col{ grid-template-columns: 1fr; }
+      .img-grid{ grid-template-columns: repeat(2, 1fr); }
+      .gitem{ width: 280px; }
     }
-    @media (max-width: 560px){
-      .hero h1{ font-size:34px; }
-      .gallery{ grid-template-columns: 1fr; }
-      .grid2{ grid-template-columns: 1fr; }
-      .topbarInner{ padding:0 12px; }
+    @media (max-width: 520px){
+      .img-grid{ grid-template-columns: 1fr; }
+      .gitem{ width: 240px; }
+      .img-card img{ height: 240px; }
+    }
+
+    /* Print: letter size, clean */
+    @media print{
+      body{ background:#fff; color:#111; }
+      .sidebar{ display:none; }
+      .main{ margin:0; padding:0; }
+      .page{
+        width: 8.5in;
+        min-height: 11in;
+        border:none;
+        box-shadow:none;
+        border-radius:0;
+        padding: 0.85in;
+        page-break-after: always;
+        background:#fff;
+      }
+      .gallery-controls{ display:none; }
+      .modal{ display:none !important; }
+      a{ color:#000; }
+      .footer{ display:none; }
     }
   </style>
 </head>
 
-<body data-theme="dark">
-  <!-- Mobile open button -->
-  <button class="btn mobileToggle" id="openSidebarBtn" type="button" aria-label="Open menu">
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-    Menu
-  </button>
-  <div class="mobileBackdrop" id="backdrop"></div>
-
-  <div class="app">
-    <!-- ================= SIDEBAR ================= -->
-    <aside class="sidebar" id="sidebar" aria-label="Sidebar navigation">
+<body>
+  <div class="wrap">
+    <!-- Sidebar -->
+    <aside class="sidebar">
       <div class="brand">
-        <div class="logo" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="2" opacity=".9"/>
-            <path d="M7 12h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".9"/>
-            <path d="M12 7v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".9"/>
-          </svg>
-        </div>
-        <div class="title">
-          <strong>Practicum Report</strong>
-          <span>Roel S. Delos Reyes • BSIT</span>
+        <h1>Practicum Report</h1>
+        <p>Roel S. Delos Reyes • BSIT • November 2025</p>
+
+        <div class="theme-toggle">
+          <button type="button" id="darkBtn">Dark</button>
+          <button type="button" id="lightBtn">Light</button>
         </div>
       </div>
 
-      <div class="controls">
-        <button class="btn" id="themeBtn" type="button" title="Toggle theme">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l-1.5-1.5M20.5 20.5 19 19M5 19l-1.5 1.5M20.5 3.5 19 5"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <details class="menu" open>
+        <summary>
+          Cover & Contents
+          <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
-          Theme
-        </button>
-
-        <button class="btn primary" id="printBtn" type="button" title="Print / Save as PDF">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 8V4h10v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <path d="M7 17h10v3H7v-3Z" stroke="currentColor" stroke-width="2"/>
-            <path d="M6 17H5a3 3 0 0 1-3-3v-3a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v3a3 3 0 0 1-3 3h-1"
-                  stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          Print
-        </button>
-      </div>
-
-      <div class="searchBox">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
-          <path d="M16.2 16.2 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <input id="searchInput" type="text" placeholder="Search sections (e.g., mission, appendix)"/>
-      </div>
-      <div class="searchHint">Tip: click any menu item to jump to that page area.</div>
-
-      <!-- TABLE OF CONTENTS (Dropdown Menus) -->
-      <nav class="toc" aria-label="Table of contents">
-        <details class="menu" open>
-          <summary>
-            <span>Cover & Table of Contents</span>
-            <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </summary>
-          <div class="menuLinks">
-            <a href="#cover"><span class="dot"></span> Cover Page</a>
-            <a href="#table-of-contents"><span class="dot"></span> Table of Contents</a>
-          </div>
-        </details>
-
-        <details class="menu" open>
-          <summary>
-            <span>I. Introduction</span>
-            <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </summary>
-          <div class="menuLinks">
-            <a href="#intro"><span class="dot"></span> Introduction Overview</a>
-            <a href="#rationale"><span class="dot"></span> A. Rationale</a>
-            <a href="#expectations"><span class="dot"></span> B. Work/Training/Project Expectations</a>
-          </div>
-        </details>
-
-        <details class="menu">
-          <summary>
-            <span>II. Organization Profile</span>
-            <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </summary>
-          <div class="menuLinks">
-            <a href="#org"><span class="dot"></span> Organization Profile Overview</a>
-            <a href="#org-history"><span class="dot"></span> A. History & Background</a>
-            <a href="#org-mission-vision"><span class="dot"></span> Mission & Vision</a>
-            <a href="#org-nature"><span class="dot"></span> B. Nature of Business</a>
-            <a href="#org-chart"><span class="dot"></span> C. Organizational Chart</a>
-            <a href="#org-contact"><span class="dot"></span> D. Contact Info & Vicinity Map</a>
-            <a href="#org-images"><span class="dot"></span> E. Organization Images</a>
-          </div>
-        </details>
-
-        <details class="menu">
-          <summary>
-            <span>III. Training / Project Profile</span>
-            <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </summary>
-          <div class="menuLinks">
-            <a href="#training"><span class="dot"></span> Training/Profile Overview</a>
-            <a href="#training-desc"><span class="dot"></span> A. Training/Project Description</a>
-            <a href="#training-nature"><span class="dot"></span> B. Nature of Training/Project</a>
-            <a href="#training-milestones"><span class="dot"></span> C. Training/Project Milestones</a>
-          </div>
-        </details>
-
-        <details class="menu">
-          <summary>
-            <span>IV. Observations</span>
-            <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </summary>
-          <div class="menuLinks">
-            <a href="#observations"><span class="dot"></span> Observations Overview</a>
-            <a href="#advantages"><span class="dot"></span> A. Competitive Advantages</a>
-            <a href="#overall-observation"><span class="dot"></span> B. Overall Observation</a>
-          </div>
-        </details>
-
-        <details class="menu">
-          <summary>
-            <span>V. Anecdotal Reports</span>
-            <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </summary>
-          <div class="menuLinks">
-            <a href="#anecdotal"><span class="dot"></span> Anecdotal Overview</a>
-            <a href="#daily"><span class="dot"></span> A. Daily Reports</a>
-            <a href="#weekly"><span class="dot"></span> B. Weekly Reports</a>
-            <a href="#monthly"><span class="dot"></span> C. Monthly Reports</a>
-            <a href="#tasks"><span class="dot"></span> D. Job Description / Task Assignments</a>
-            <a href="#problems"><span class="dot"></span> E. Problems Encountered</a>
-            <a href="#practices"><span class="dot"></span> F. Salient Practices</a>
-            <a href="#relevance"><span class="dot"></span> G. Relevance to the Chosen Training</a>
-            <a href="#gained-experience"><span class="dot"></span> H. Summary of Gained Experience</a>
-          </div>
-        </details>
-
-        <details class="menu">
-          <summary>
-            <span>VI. Appendices</span>
-            <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </summary>
-          <div class="menuLinks">
-            <a href="#appendices"><span class="dot"></span> Appendices Overview</a>
-            <a href="#appendix-gallery"><span class="dot"></span> Appendix Gallery</a>
-            <a href="#appendix-links"><span class="dot"></span> Links & Profiles</a>
-            <a href="#upload"><span class="dot"></span> Upload Images (Preview)</a>
-          </div>
-        </details>
-      </nav>
-
-      <div class="sidebarFooter">
-        <div><strong>Images folder:</strong> put your photos inside <code>/images/</code></div>
-        <div style="margin-top:6px;">Example paths used: <code>images/orgchart.jpg</code>, <code>images/practicum1.jpg</code>, etc.</div>
-      </div>
-
-      <div class="sidebarFooter" style="margin-top:10px;">
-        <div class="small">Quick actions:</div>
-        <div class="row" style="margin-top:8px;">
-          <button class="btn" id="closeSidebarBtn" type="button" style="flex:1;">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            Close
-          </button>
+        </summary>
+        <div class="links">
+          <a href="#cover">Cover Page</a>
+          <a href="#toc">Table of Contents</a>
         </div>
-      </div>
+      </details>
+
+      <details class="menu" open>
+        <summary>
+          I. Introduction
+          <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </summary>
+        <div class="links">
+          <a href="#intro">Overview</a>
+          <a href="#rationale">A. Rationale</a>
+          <a href="#expectations">B. Work/Training/Project Expectations</a>
+        </div>
+      </details>
+
+      <details class="menu">
+        <summary>
+          II. Organization Profile
+          <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </summary>
+        <div class="links">
+          <a href="#org">Overview</a>
+          <a href="#org-history">A. History & Background</a>
+          <a href="#org-mv">Mission & Vision</a>
+          <a href="#org-nature">B. Nature of Business</a>
+          <a href="#org-chart">C. Organizational Chart</a>
+          <a href="#org-contact">D. Contact Info & Vicinity Map</a>
+          <a href="#org-images">E. Organization Images</a>
+        </div>
+      </details>
+
+      <details class="menu">
+        <summary>
+          III. Training / Project Profile
+          <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </summary>
+        <div class="links">
+          <a href="#training">Overview</a>
+          <a href="#training-desc">A. Description</a>
+          <a href="#training-nature">B. Nature of Training/Project</a>
+          <a href="#training-milestones">C. Milestones</a>
+        </div>
+      </details>
+
+      <details class="menu">
+        <summary>
+          IV. Observations
+          <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </summary>
+        <div class="links">
+          <a href="#obs">Overview</a>
+          <a href="#advantages">A. Competitive Advantages</a>
+          <a href="#overall">B. Overall Observation</a>
+        </div>
+      </details>
+
+      <details class="menu">
+        <summary>
+          V. Anecdotal Reports
+          <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </summary>
+        <div class="links">
+          <a href="#anecdotal">Overview</a>
+          <a href="#daily">A. Daily</a>
+          <a href="#weekly">B. Weekly</a>
+          <a href="#monthly">C. Monthly</a>
+          <a href="#tasks">D. Job Description / Tasks</a>
+          <a href="#problems">E. Problems Encountered</a>
+          <a href="#practices">F. Salient Practices</a>
+          <a href="#relevance">G. Relevance</a>
+          <a href="#summary">H. Summary of Gained Experience</a>
+        </div>
+      </details>
+
+      <details class="menu">
+        <summary>
+          Practicum Images
+          <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </summary>
+        <div class="links">
+          <a href="#practicum-images-page">Images During Practicum (15)</a>
+        </div>
+      </details>
+
+      <details class="menu">
+        <summary>
+          VI. Appendices
+          <svg class="caret" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </summary>
+        <div class="links">
+          <a href="#appendices">Overview</a>
+          <a href="#evaluation-pages">Evaluation (4 pages)</a>
+          <a href="#appendix-gallery">Appendix Gallery</a>
+          <a href="#links">Links</a>
+        </div>
+      </details>
     </aside>
 
-    <!-- ================= MAIN ================= -->
-    <main class="main" id="main">
-      <!-- TOP BAR -->
-      <header class="topbar" aria-label="Top bar">
-        <div class="topbarInner container">
-          <div class="topbarLeft">
-            <div class="crumb">
-              <strong id="activeTitle">Cover Page</strong>
-              <span id="activeSubtitle">Practicum Report • 300 Hours • November 2025</span>
-            </div>
+    <!-- Main -->
+    <main class="main">
+      <!-- Cover -->
+      <section class="page cover" id="cover">
+        <h2>PRACTICUM REPORT</h2>
+        <div class="sub">(300 Hours)</div>
+
+        <div class="block">
+          <div>A Portfolio Presented to the Faculty of the</div>
+          <div><strong>College of Information Technology</strong></div>
+          <div>Southville International School and Colleges</div>
+
+          <div style="margin-top:10px;">In Partial Fulfillment of the Requirements</div>
+          <div>for the Degree of</div>
+          <div><strong>Bachelor of Science in Information Technology</strong></div>
+
+          <div style="margin-top:10px;"><strong>Delos Reyes, Roel S.</strong></div>
+          <div>Submitted to: <strong>Dr. Aris E. Ignacio</strong></div>
+          <div>Date: <strong>November 2025</strong></div>
+        </div>
+      </section>
+
+      <!-- Table of Contents -->
+      <section class="page" id="toc">
+        <h3 class="section-title">Table of Contents</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:35%;">Section</th>
+                <th>Subsections</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>I. Introduction</strong></td>
+                <td>Rationale • Work/Training/Project Expectations</td>
+              </tr>
+              <tr>
+                <td><strong>II. Organization Profile</strong></td>
+                <td>History & Background • Mission & Vision • Nature of Business • Organizational Chart • Contact & Vicinity Map • Organization Images</td>
+              </tr>
+              <tr>
+                <td><strong>III. Training / Project Profile</strong></td>
+                <td>Training/Project Description • Nature of Training/Project • Milestones</td>
+              </tr>
+              <tr>
+                <td><strong>IV. Observations</strong></td>
+                <td>Competitive Advantages • Overall Observation</td>
+              </tr>
+              <tr>
+                <td><strong>V. Anecdotal Reports</strong></td>
+                <td>Daily • Weekly • Monthly • Job Description/Tasks • Problems Encountered • Salient Practices • Relevance • Summary</td>
+              </tr>
+              <tr>
+                <td><strong>Practicum Images</strong></td>
+                <td>Images During Practicum (15 images)</td>
+              </tr>
+              <tr>
+                <td><strong>VI. Appendices</strong></td>
+                <td>Recommendation Letter • Certificate • Performance Evaluation (4 pages) • DTR • Images • Updated Resume • Jobs180 • LinkedIn</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- I. Introduction -->
+      <section class="page" id="intro">
+        <h3 class="section-title">I. Introduction</h3>
+
+        <h4 id="rationale">A. Rationale</h4>
+        <p>
+          On-the-Job Training is a real-world experience for students to learn about the field they plan to enter.
+          It helps in understanding workplace culture, expectations, and the skills needed to perform effectively
+          in a professional environment. OJT provides opportunities to apply classroom knowledge, improve confidence,
+          and build connections that can be valuable after graduation.
+        </p>
+        <p>
+          Internships help students learn, connect, and grow by developing skills outside the classroom and
+          allowing exposure to real tasks and professional work standards.
+        </p>
+
+        <h4 id="expectations">B. Work / Training / Project Expectations</h4>
+        <p>
+          The practicum is expected to enhance technical competence, professional discipline, teamwork,
+          communication skills, and adaptability in real-world information technology environments.
+        </p>
+        <ul>
+          <li>Apply IT knowledge in actual workplace tasks and workflows.</li>
+          <li>Strengthen documentation and communication skills.</li>
+          <li>Develop professionalism, accountability, and time management.</li>
+          <li>Improve troubleshooting and problem-solving abilities.</li>
+        </ul>
+      </section>
+
+      <!-- II. Organization Profile -->
+      <section class="page" id="org">
+        <h3 class="section-title">II. Organization Profile</h3>
+
+        <h4 id="org-history">A. Organization History and Background</h4>
+        <p>
+          It was Dr. Genevieve Ledesma-Laurel who founded in 1990 Southville International School and Colleges (SISC),
+          which grew rapidly into a full international school. In 1997, Roger and Helen Bartholomew teamed up with
+          the founder of SISC to start Southville International School Affiliated with Foreign Universities (SISFU),
+          the first international university in the country. SISFU provides globally relevant education through
+          partnerships with international institutions and rigorous academic standards.
+        </p>
+
+        <div class="two-col" id="org-mv">
+          <div class="box">
+            <h4 style="margin-top:0;">Mission</h4>
+            <p class="muted">
+              SISFU, the premier transnational university in the Philippines, delivers globally-relevant quality
+              undergraduate and graduate programs developed by accredited educational partners from the UK, Australia
+              and the USA. Using rigorous international standards in instruction, assessment and research, supported
+              by excellent facilities, highly-qualified faculty, and industry collaboration, SISFU prepares students
+              to be globally competitive professionals, entrepreneurs, and leaders.
+            </p>
+
+            <h4>Vision</h4>
+            <p class="muted">
+              SISFU will be the leading transnational university that develops global leaders and professionals.
+              It is distinguished by its excellent academic standards, outstanding instructional methodologies,
+              relevant research, high levels of student achievement, a culture of innovation, and strong partnerships
+              with ranked educational institutions.
+            </p>
           </div>
-          <div class="topbarRight">
-            <a class="btn" href="#appendices" title="Jump to Appendices">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M7 3h10v18H7V3Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M9 7h6M9 11h6M9 15h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              Appendices
-            </a>
-            <button class="btn" id="copyLinkBtn" type="button" title="Copy page link">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M10 14a5 5 0 0 1 0-7l1-1a5 5 0 0 1 7 7l-1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M14 10a5 5 0 0 1 0 7l-1 1a5 5 0 0 1-7-7l1-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              Copy Link
-            </button>
+
+          <div class="box">
+            <h4 id="org-nature" style="margin-top:0;">B. Nature of Business</h4>
+            <p>
+              The institution operates as a higher education provider delivering undergraduate and graduate programs
+              with international accreditation through partnerships with foreign universities.
+            </p>
+
+            <h4 id="org-contact">D. Contact Information and Vicinity Map</h4>
+            <p>
+              Southville International School and Colleges / SISFU<br/>
+              Las Piñas City, Philippines
+            </p>
+
+            <div class="img-grid">
+              <div class="img-card" data-pop="images/vicinity-map.jpg" data-cap="Vicinity Map">
+                <img src="images/vicinity-map.jpg" alt="Vicinity Map">
+                <div class="cap">Vicinity Map</div>
+              </div>
+              <div class="img-card" data-pop="images/campus.jpg" data-cap="Campus / Location">
+                <img src="images/campus.jpg" alt="Campus / Location">
+                <div class="cap">Campus / Location</div>
+              </div>
+              <div class="img-card" data-pop="images/contact-info.jpg" data-cap="Contact Information">
+                <img src="images/contact-info.jpg" alt="Contact Information">
+                <div class="cap">Contact Information</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="progressWrap"><div class="progress" id="progressBar"></div></div>
-      </header>
 
-      <div class="content">
-        <!-- ================= COVER ================= -->
-        <section class="section hero" id="cover" data-title="Cover Page" data-subtitle="Practicum Report • 300 Hours • November 2025">
-          <div class="heroGrid">
-            <div>
-              <h1>PRACTICUM REPORT</h1>
-              <h2>(300 Hours) • Portfolio</h2>
-
-              <p class="muted" style="margin-top:10px;">
-                A Portfolio Presented to the Faculty of the <strong>College of Information Technology</strong><br/>
-                <strong>Southville International School and Colleges</strong>
-              </p>
-
-              <p class="muted">
-                In Partial Fulfillment of the Requirements for the Degree of<br/>
-                <strong>Bachelor of Science in Information Technology</strong>
-              </p>
-
-              <div class="meta">
-                <span class="pill">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
-                    <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Z" stroke="currentColor" stroke-width="2"/>
-                    <path d="M20 21a8 8 0 1 0-16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  <strong>Delos Reyes, Roel S.</strong>
-                </span>
-
-                <span class="pill">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
-                    <path d="M8 7h8M8 11h8M8 15h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M6 3h12v18H6V3Z" stroke="currentColor" stroke-width="2"/>
-                  </svg>
-                  Submitted to: <strong>Dr. Aris E. Ignacio</strong>
-                </span>
-
-                <span class="pill">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
-                    <path d="M7 4v2M17 4v2M4 9h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M5 6h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="2"/>
-                  </svg>
-                  Date: <strong>November 2025</strong>
-                </span>
-              </div>
-
-              <div class="linkRow" style="margin-top:18px;">
-                <a class="linkBtn" href="#table-of-contents">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M8 6h13M8 12h13M8 18h13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M3 6h1M3 12h1M3 18h1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  View Table of Contents
-                </a>
-                <a class="linkBtn" href="#upload">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 16V7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M8.5 10.5 12 7l3.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M4 17v3h16v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Upload Practicum Images
-                </a>
-              </div>
-            </div>
-
-            <div class="heroCard">
-              <div>
-                <div class="miniTitle">Quick Summary</div>
-                <div class="big">Practicum Portfolio</div>
-                <p class="muted" style="margin-top:10px;">
-                  A complete, sectioned report with images, appendices, and easy navigation.
-                </p>
-
-                <div class="callouts">
-                  <div class="callout">
-                    <strong>Hours</strong>
-                    <span>300</span>
-                  </div>
-                  <div class="callout">
-                    <strong>Program</strong>
-                    <span>BSIT</span>
-                  </div>
-                  <div class="callout">
-                    <strong>Year</strong>
-                    <span>2025</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="linkRow">
-                <a class="linkBtn" target="_blank" rel="noopener" href="https://www.linkedin.com/in/roel-de-los-reyes-7a76412b6/">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M4 4h16v16H4V4Z" stroke="currentColor" stroke-width="2"/>
-                    <path d="M8 10v7M8 7v.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M12 10v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M12 13.5c0-2 4-2.5 4 .5V17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  LinkedIn Profile
-                </a>
-                <button class="linkBtn" type="button" id="scrollNextBtn">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M7 14l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Scroll to Intro
-                </button>
-              </div>
-            </div>
+        <h4 id="org-chart">C. Organizational Chart</h4>
+        <div class="img-grid">
+          <div class="img-card" style="grid-column:1/-1;" data-pop="images/orgchart.jpg" data-cap="Organizational Chart">
+            <img src="images/orgchart.jpg" alt="Organizational Chart" style="height:320px;">
+            <div class="cap">Organizational Chart</div>
           </div>
-        </section>
+        </div>
 
-        <!-- ================= TABLE OF CONTENTS PAGE ================= -->
-        <section class="section" id="table-of-contents" data-title="Table of Contents" data-subtitle="All sections are clickable via the sidebar menus">
-          <div class="sectionTitle">
-            <h2>Table of Contents</h2>
-            <span class="tag">Navigation</span>
+        <h4 id="org-images">E. Organization Images</h4>
+        <div class="img-grid">
+          <div class="img-card" data-pop="images/practicum1.jpg" data-cap="Organization Image 1">
+            <img src="images/practicum1.jpg" alt="Organization Image 1"><div class="cap">Organization Image 1</div>
           </div>
-
-          <p>
-            Use the left menu (dropdowns) to jump to any part of the portfolio. Each menu item will scroll you to the correct
-            section/area on this page.
-          </p>
-
-          <div class="tableWrap" style="margin-top:14px;">
-            <table>
-              <thead>
-                <tr>
-                  <th style="width:40%;">Main Section</th>
-                  <th>Sub Content (Dropdown Items)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Cover & Table of Contents</strong></td>
-                  <td>Cover Page • Table of Contents</td>
-                </tr>
-                <tr>
-                  <td><strong>I. Introduction</strong></td>
-                  <td>Overview • Rationale • Work/Training/Project Expectations</td>
-                </tr>
-                <tr>
-                  <td><strong>II. Organization Profile</strong></td>
-                  <td>Overview • History & Background • Mission & Vision • Nature of Business • Organizational Chart • Contact & Map • Organization Images</td>
-                </tr>
-                <tr>
-                  <td><strong>III. Training / Project Profile</strong></td>
-                  <td>Overview • Description • Nature of Training/Project • Milestones</td>
-                </tr>
-                <tr>
-                  <td><strong>IV. Observations</strong></td>
-                  <td>Overview • Competitive Advantages • Overall Observation</td>
-                </tr>
-                <tr>
-                  <td><strong>V. Anecdotal Reports</strong></td>
-                  <td>Overview • Daily • Weekly • Monthly • Tasks • Problems • Salient Practices • Relevance • Summary of Gained Experience</td>
-                </tr>
-                <tr>
-                  <td><strong>VI. Appendices</strong></td>
-                  <td>Overview • Gallery • Links & Profiles • Upload Images</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="img-card" data-pop="images/practicum2.jpg" data-cap="Organization Image 2">
+            <img src="images/practicum2.jpg" alt="Organization Image 2"><div class="cap">Organization Image 2</div>
           </div>
-
-          <p class="muted small" style="margin-top:12px;">
-            Note: This is a single HTML file portfolio. Your images should be inside your project folder <code>images/</code>.
-          </p>
-        </section>
-
-        <!-- ================= I. INTRODUCTION ================= -->
-        <section class="section" id="intro" data-title="I. Introduction" data-subtitle="Rationale and Practicum Expectations">
-          <div class="sectionTitle">
-            <h2>I. Introduction</h2>
-            <span class="tag">Part I</span>
+          <div class="img-card" data-pop="images/practicum3.jpg" data-cap="Organization Image 3">
+            <img src="images/practicum3.jpg" alt="Organization Image 3"><div class="cap">Organization Image 3</div>
           </div>
+        </div>
+      </section>
 
-          <div class="grid2">
-            <div class="card">
-              <h3 id="rationale">A. Rationale</h3>
-              <p>
-                On-the-Job Training (OJT) is a real-world experience for students to learn about the field they plan to enter.
-                It helps students understand different job environments, workplace culture, and the skills needed to perform
-                effectively in professional settings. This experience allows students to apply classroom learning and improve
-                their employability after graduation.
-              </p>
-              <p>
-                Internships help students learn, connect, and grow by providing opportunities to develop new skills, perform
-                real tasks, and build professional networks that can support career opportunities.
-              </p>
-            </div>
+      <!-- III. Training / Project Profile -->
+      <section class="page" id="training">
+        <h3 class="section-title">III. Training / Project Profile</h3>
 
-            <div class="card">
-              <h3 id="expectations">B. Work / Training / Project Expectations</h3>
-              <p>
-                The practicum is expected to strengthen technical competence, professional discipline, teamwork, communication
-                skills, and adaptability in real-world information technology environments.
-              </p>
-              <ul>
-                <li>Apply IT knowledge in actual workplace tasks.</li>
-                <li>Improve communication, documentation, and teamwork skills.</li>
-                <li>Develop professionalism (time management, ethics, accountability).</li>
-                <li>Enhance problem-solving and troubleshooting ability.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="card" style="margin-top:16px;">
-            <h3>Introduction Overview</h3>
-            <p class="muted">
-              This section explains why OJT/practicum is important and what the practicum is expected to contribute to your
-              skills and professional growth.
-            </p>
-          </div>
-        </section>
-
-        <!-- ================= II. ORGANIZATION PROFILE ================= -->
-        <section class="section" id="org" data-title="II. Organization Profile" data-subtitle="SISFU background, mission/vision, and documentation">
-          <div class="sectionTitle">
-            <h2>II. Organization Profile</h2>
-            <span class="tag">Part II</span>
-          </div>
-
-          <div class="grid2">
-            <div class="card">
-              <h3 id="org-history">A. Organization History and Background</h3>
-              <p>
-                It was Dr. Genevieve Ledesma-Laurel who founded in 1990 Southville International School and Colleges (SISC),
-                which grew rapidly into a full international school. In 1997, Roger and Helen Bartholomew teamed up with
-                the founder of SISC to start Southville International School Affiliated with Foreign Universities (SISFU),
-                the first international university in the country.
-              </p>
-              <p>
-                SISFU aims to bring high quality education to the Philippines through globally relevant programs, rigorous
-                international standards, excellent facilities, and strong international partnerships.
-              </p>
-            </div>
-
-            <div class="card">
-              <h3 id="org-mission-vision">Mission and Vision</h3>
-
-              <h4 style="margin:10px 0 6px;">SISFU Mission</h4>
-              <p>
-                SISFU delivers globally-relevant quality undergraduate and graduate programs developed by accredited
-                educational partners from the UK, Australia and the USA. Using rigorous international standards, supported
-                by excellent facilities and faculty, SISFU prepares students to be globally competitive professionals,
-                entrepreneurs, and leaders.
-              </p>
-
-              <h4 style="margin:10px 0 6px;">SISFU Vision</h4>
-              <p>
-                SISFU will be the leading transnational university that develops global leaders and professionals, known for
-                excellent standards, innovation, relevant research, high achievement, and strong partnerships with ranked
-                educational institutions.
-              </p>
-            </div>
-          </div>
-
-          <div class="grid2" style="margin-top:16px;">
-            <div class="card">
-              <h3 id="org-nature">B. Nature of Business</h3>
-              <p>
-                The institution operates as a higher education provider delivering undergraduate and graduate programs with
-                international accreditation through partnerships with foreign universities.
-              </p>
-
-              <div class="tableWrap" style="margin-top:12px;">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Area</th>
-                      <th>Description</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>Core Service</strong></td>
-                      <td>Transnational education, globally-relevant curricula, partner-accredited programs.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Key Stakeholders</strong></td>
-                      <td>Students, faculty, partner universities, industry partners, community.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Focus</strong></td>
-                      <td>Quality standards, international exposure, industry collaboration, outcomes-based learning.</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div class="card">
-              <h3 id="org-contact">D. Contact Information and Vicinity Map</h3>
-              <p>
-                <strong>Southville International School and Colleges / SISFU</strong><br/>
-                Las Piñas City, Philippines
-              </p>
-
-              <p class="muted small">
-                (Optional) Add here: full address, phone number, email, and a screenshot of Google Maps saved in your
-                <code>images/</code> folder.
-              </p>
-
-              <div class="gallery" style="margin-top:12px;">
-                <div class="imgCard">
-                  <img src="images/vicinity-map.jpg" alt="Vicinity map (replace with your image)"/>
-                  <div class="cap">
-                    <span>Vicinity Map</span>
-                    <span class="badge">images/vicinity-map.jpg</span>
-                  </div>
-                </div>
-                <div class="imgCard">
-                  <img src="images/contact-info.jpg" alt="Contact info image (optional)"/>
-                  <div class="cap">
-                    <span>Contact Info (Optional)</span>
-                    <span class="badge">images/contact-info.jpg</span>
-                  </div>
-                </div>
-                <div class="imgCard">
-                  <img src="images/campus.jpg" alt="Campus image (optional)"/>
-                  <div class="cap">
-                    <span>Campus (Optional)</span>
-                    <span class="badge">images/campus.jpg</span>
-                  </div>
-                </div>
-              </div>
-
-              <p class="hint">
-                If you don’t have these images yet, no problem—just place your files in <code>images/</code> and rename them
-                to match the filenames above, OR edit the <code>src</code> paths in this HTML.
-              </p>
-            </div>
-          </div>
-
-          <div class="card" style="margin-top:16px;">
-            <h3 id="org-chart">C. Organizational Chart</h3>
-            <p class="muted small">Replace <code>images/orgchart.jpg</code> with your real organizational chart image.</p>
-
-            <div class="gallery" style="margin-top:12px;">
-              <div class="imgCard" style="grid-column: 1 / -1;">
-                <img src="images/orgchart.jpg" alt="Organizational chart"/>
-                <div class="cap">
-                  <span>Organizational Chart</span>
-                  <span class="badge">images/orgchart.jpg</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" style="margin-top:16px;">
-            <h3 id="org-images">E. Organization Images</h3>
-            <p class="muted">Add photos of the organization, workplace, events, or activities.</p>
-
-            <div class="gallery" style="margin-top:12px;">
-              <div class="imgCard">
-                <img src="images/practicum1.jpg" alt="Organization image 1"/>
-                <div class="cap">
-                  <span>Organization Photo 1</span>
-                  <span class="badge">images/practicum1.jpg</span>
-                </div>
-              </div>
-              <div class="imgCard">
-                <img src="images/practicum2.jpg" alt="Organization image 2"/>
-                <div class="cap">
-                  <span>Organization Photo 2</span>
-                  <span class="badge">images/practicum2.jpg</span>
-                </div>
-              </div>
-              <div class="imgCard">
-                <img src="images/practicum3.jpg" alt="Organization image 3"/>
-                <div class="cap">
-                  <span>Organization Photo 3</span>
-                  <span class="badge">images/practicum3.jpg</span>
-                </div>
-              </div>
-            </div>
-
-            <p class="hint">
-              You can add more by duplicating the <code>.imgCard</code> blocks and changing the filenames.
-            </p>
-          </div>
-        </section>
-
-        <!-- ================= III. TRAINING / PROJECT PROFILE ================= -->
-        <section class="section" id="training" data-title="III. Training / Project Profile" data-subtitle="Training details, nature, and milestones">
-          <div class="sectionTitle">
-            <h2>III. Training / Project Profile</h2>
-            <span class="tag">Part III</span>
-          </div>
-
-          <div class="grid2">
-            <div class="card">
-              <h3 id="training-desc">A. Training / Project Description</h3>
-              <p>
-                The practicum involved hands-on participation in IT support services, documentation, system maintenance, and
-                administrative technical assistance. The experience enhanced real-world problem-solving skills and exposure to
-                daily IT operations.
-              </p>
-            </div>
-
-            <div class="card">
-              <h3 id="training-nature">B. Nature of Training / Project</h3>
-              <p>
-                The training focused on practical application of information technology concepts, including troubleshooting,
-                system support, user assistance, and data organization/documentation aligned with the organization’s workflow.
-              </p>
-
-              <div class="tableWrap" style="margin-top:12px;">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Training Area</th>
-                      <th>Examples</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>Technical Support</strong></td>
-                      <td>Basic troubleshooting, user guidance, issue tracking.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Documentation</strong></td>
-                      <td>Reports, forms, inventory lists, step-by-step procedures.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Systems & Maintenance</strong></td>
-                      <td>System checks, updates, basic maintenance tasks.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Professional Skills</strong></td>
-                      <td>Communication, teamwork, time management, task accountability.</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" style="margin-top:16px;">
-            <h3 id="training-milestones">C. Training / Project Milestones</h3>
-            <div class="timeline">
-              <div class="tItem">
-                <strong>Orientation and Familiarization</strong>
-                <span>Week 1</span>
-                <p>Understanding rules, tools, workplace processes, and assigned department setup.</p>
-              </div>
-              <div class="tItem">
-                <strong>Task Assignment and Supervision</strong>
-                <span>Week 2 onwards</span>
-                <p>Receiving daily/weekly tasks, learning proper documentation and technical support workflow.</p>
-              </div>
-              <div class="tItem">
-                <strong>Hands-on Execution</strong>
-                <span>Mid-term</span>
-                <p>Performing actual support tasks, assisting users, completing documentation and maintenance activities.</p>
-              </div>
-              <div class="tItem">
-                <strong>Completion and Evaluation</strong>
-                <span>End of Practicum</span>
-                <p>Submission of outputs, performance evaluation, reflection, and portfolio/report finalization.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ================= IV. OBSERVATIONS ================= -->
-        <section class="section" id="observations" data-title="IV. Observations" data-subtitle="Competitive advantages and overall workplace observations">
-          <div class="sectionTitle">
-            <h2>IV. Observations</h2>
-            <span class="tag">Part IV</span>
-          </div>
-
-          <div class="grid2">
-            <div class="card">
-              <h3 id="advantages">A. Organization’s / Training’s / Project’s Competitive Advantages</h3>
-              <p>
-                The organization demonstrates efficiency through structured workflows, competent staff, and effective use of
-                information systems. Clear coordination and established standards help ensure smooth operations.
-              </p>
-              <ul>
-                <li>Organized processes and structured workflow.</li>
-                <li>Supportive and knowledgeable staff.</li>
-                <li>Effective use of technology and documentation.</li>
-                <li>Professional environment that promotes learning.</li>
-              </ul>
-            </div>
-
-            <div class="card">
-              <h3 id="overall-observation">B. Overall Observation</h3>
-              <p>
-                The working environment promotes professionalism, collaboration, and continuous learning. The practicum
-                environment supports skill development through real tasks and guidance from supervisors.
-              </p>
-
-              <div class="callouts" style="margin-top:12px;">
-                <div class="callout">
-                  <strong>Culture</strong>
-                  <span>Professional</span>
-                </div>
-                <div class="callout">
-                  <strong>Teamwork</strong>
-                  <span>Collaborative</span>
-                </div>
-                <div class="callout">
-                  <strong>Learning</strong>
-                  <span>Continuous</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ================= V. ANECDOTAL REPORTS ================= -->
-        <section class="section" id="anecdotal" data-title="V. Anecdotal Reports" data-subtitle="Daily, weekly, monthly logs and reflections">
-          <div class="sectionTitle">
-            <h2>V. Anecdotal Reports</h2>
-            <span class="tag">Part V</span>
-          </div>
-
-          <div class="card">
-            <h3 id="daily">A. Periodic Reports (Daily)</h3>
-            <p class="muted small">
-              Replace the sample entries below with your real daily logs. You can copy/paste your logs or add rows.
-            </p>
-
-            <div class="tableWrap" style="margin-top:12px;">
-              <table>
-                <thead>
-                  <tr>
-                    <th style="width:16%;">Date</th>
-                    <th style="width:22%;">Task/Activity</th>
-                    <th>Details / Output</th>
-                    <th style="width:20%;">Skills Applied</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Day 1</strong><br/><span class="muted small">[Insert date]</span></td>
-                    <td>Orientation</td>
-                    <td>Familiarization with policies, tools, and assigned duties.</td>
-                    <td>Communication, professionalism</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Day 2</strong><br/><span class="muted small">[Insert date]</span></td>
-                    <td>Documentation</td>
-                    <td>Prepared/updated forms, reports, or inventory list.</td>
-                    <td>Documentation, attention to detail</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Day 3</strong><br/><span class="muted small">[Insert date]</span></td>
-                    <td>IT Support</td>
-                    <td>Assisted users with basic troubleshooting and guidance.</td>
-                    <td>Troubleshooting, customer support</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <p class="hint">
-              Tip: For many daily entries, it’s okay to keep it short as long as it’s clear, complete, and consistent.
-            </p>
-          </div>
-
-          <div class="card">
-            <h3 id="weekly">B. Periodic Reports (Weekly)</h3>
-            <p class="muted small">Add your weekly summary here. Example format below:</p>
-
-            <div class="timeline">
-              <div class="tItem">
-                <strong>Week 1</strong>
-                <span>[Insert date range]</span>
-                <p>Orientation, initial tasks, documentation setup, and familiarization with IT support flow.</p>
-              </div>
-              <div class="tItem">
-                <strong>Week 2</strong>
-                <span>[Insert date range]</span>
-                <p>Assisted with support requests, updated records, and performed routine technical tasks.</p>
-              </div>
-              <div class="tItem">
-                <strong>Week 3</strong>
-                <span>[Insert date range]</span>
-                <p>Worked on assigned outputs, improved efficiency, and handled more independent tasks.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <h3 id="monthly">C. Periodic Reports (Monthly)</h3>
-            <p class="muted small">Use this for bigger reflections per month:</p>
-
-            <div class="grid2" style="margin-top:12px;">
-              <div class="card">
-                <strong>Month 1</strong>
-                <p class="muted">Key learnings, major tasks, and improvements.</p>
-                <ul>
-                  <li>Learned organizational workflow and documentation standards.</li>
-                  <li>Improved troubleshooting confidence and communication.</li>
-                </ul>
-              </div>
-              <div class="card">
-                <strong>Month 2</strong>
-                <p class="muted">Key learnings, major tasks, and improvements.</p>
-                <ul>
-                  <li>Handled tasks with less supervision.</li>
-                  <li>Improved time management and quality of outputs.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="grid2">
-            <div class="card">
-              <h3 id="tasks">D. Job Description / Task Assignments</h3>
-              <p class="muted small">Replace with your actual responsibilities:</p>
-              <ul>
-                <li>Provide basic technical support and troubleshooting assistance.</li>
-                <li>Maintain and update documentation, inventories, and reports.</li>
-                <li>Assist with system checks and routine maintenance tasks.</li>
-                <li>Coordinate with staff for task priorities and progress updates.</li>
-              </ul>
-            </div>
-
-            <div class="card">
-              <h3 id="problems">E. Problems Encountered</h3>
-              <p class="muted small">Add the real problems you faced and how you solved them:</p>
-              <ul>
-                <li><strong>[Problem 1]</strong> — How it affected your work and your solution.</li>
-                <li><strong>[Problem 2]</strong> — Steps you took to troubleshoot or ask help.</li>
-                <li><strong>[Problem 3]</strong> — What you learned and improved.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="grid2" style="margin-top:16px;">
-            <div class="card">
-              <h3 id="practices">F. Salient Practices</h3>
-              <p class="muted small">Good practices you observed (examples):</p>
-              <ul>
-                <li>Proper documentation and consistent record keeping.</li>
-                <li>Clear communication and teamwork for faster issue resolution.</li>
-                <li>Following security policies and safe handling of data.</li>
-                <li>Professional support and service orientation.</li>
-              </ul>
-            </div>
-
-            <div class="card">
-              <h3 id="relevance">G. Relevance to the Chosen Training</h3>
-              <p>
-                The practicum aligns with BSIT training by providing exposure to real IT operations such as technical support,
-                documentation, and troubleshooting. It strengthened practical skills and improved readiness for professional
-                IT roles.
-              </p>
-            </div>
-          </div>
-
-          <div class="card" style="margin-top:16px;">
-            <h3 id="gained-experience">H. Summary of Gained Experience</h3>
+        <div class="two-col">
+          <div class="box">
+            <h4 id="training-desc" style="margin-top:0;">A. Training / Project Description</h4>
             <p>
-              The practicum enhanced technical knowledge, problem-solving skills, communication, and professional work ethics.
-              It provided real workplace exposure and improved confidence in handling IT-related tasks.
-            </p>
-            <div class="tableWrap" style="margin-top:12px;">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Skill Category</th>
-                    <th>What Improved</th>
-                    <th>Evidence / Example Output</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Technical</strong></td>
-                    <td>Troubleshooting, system support, documentation</td>
-                    <td>Support tasks, reports, maintenance logs</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Professional</strong></td>
-                    <td>Time management, reliability, accountability</td>
-                    <td>Meeting deadlines, consistent output quality</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Communication</strong></td>
-                    <td>Coordination, reporting, user support</td>
-                    <td>Clear updates, assisting users, teamwork</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <!-- ================= VI. APPENDICES ================= -->
-        <section class="section" id="appendices" data-title="VI. Appendices" data-subtitle="Recommendation letter, certificates, DTR, resume, profiles, images">
-          <div class="sectionTitle">
-            <h2>VI. Appendices</h2>
-            <span class="tag">Part VI</span>
-          </div>
-
-          <div class="card">
-            <p class="muted">
-              Add your scanned documents/images inside <code>images/</code> and update filenames if needed.
-              Each appendix below is displayed as a card with preview image.
+              The practicum involved hands-on participation in IT support services, documentation, system maintenance,
+              and administrative technical assistance. The experience provided exposure to daily IT operations and
+              strengthened practical skills.
             </p>
           </div>
 
-          <div class="card" id="appendix-gallery">
-            <h3>Appendix Gallery</h3>
-
-            <div class="gallery" style="margin-top:12px;">
-              <div class="imgCard">
-                <img src="images/app1.jpg" alt="Practicum Recommendation Letter"/>
-                <div class="cap">
-                  <span>Recommendation Letter</span>
-                  <span class="badge">images/app1.jpg</span>
-                </div>
-              </div>
-              <div class="imgCard">
-                <img src="images/app2.jpg" alt="Certificate of Completion"/>
-                <div class="cap">
-                  <span>Certificate of Completion</span>
-                  <span class="badge">images/app2.jpg</span>
-                </div>
-              </div>
-              <div class="imgCard">
-                <img src="images/app3.jpg" alt="Performance Evaluation Report"/>
-                <div class="cap">
-                  <span>Performance Evaluation</span>
-                  <span class="badge">images/app3.jpg</span>
-                </div>
-              </div>
-              <div class="imgCard">
-                <img src="images/app4.jpg" alt="Attendance Reports (DTR)"/>
-                <div class="cap">
-                  <span>Attendance Reports (DTR)</span>
-                  <span class="badge">images/app4.jpg</span>
-                </div>
-              </div>
-              <div class="imgCard">
-                <img src="images/app5.jpg" alt="Images During Practicum"/>
-                <div class="cap">
-                  <span>Images During Practicum</span>
-                  <span class="badge">images/app5.jpg</span>
-                </div>
-              </div>
-              <div class="imgCard">
-                <img src="images/app6.jpg" alt="Updated Resume"/>
-                <div class="cap">
-                  <span>Updated Resume</span>
-                  <span class="badge">images/app6.jpg</span>
-                </div>
-              </div>
-              <div class="imgCard">
-                <img src="images/app7.jpg" alt="Jobs180 Profile Screenshot"/>
-                <div class="cap">
-                  <span>Jobs180 Profile</span>
-                  <span class="badge">images/app7.jpg</span>
-                </div>
-              </div>
-              <div class="imgCard">
-                <img src="images/app8.jpg" alt="LinkedIn Profile Screenshot"/>
-                <div class="cap">
-                  <span>LinkedIn Profile</span>
-                  <span class="badge">images/app8.jpg</span>
-                </div>
-              </div>
-              <div class="imgCard">
-                <img src="images/app9.jpg" alt="Additional Appendix (optional)"/>
-                <div class="cap">
-                  <span>Additional Appendix (Optional)</span>
-                  <span class="badge">images/app9.jpg</span>
-                </div>
-              </div>
-            </div>
-
-            <p class="hint">
-              If some images are missing, the page will still load but the image may show as broken.
-              Just add your files into <code>images/</code> and match the filename.
+          <div class="box">
+            <h4 id="training-nature" style="margin-top:0;">B. Nature of Training / Project</h4>
+            <p>
+              The training focused on practical application of information technology concepts, including troubleshooting,
+              system support, user assistance, and data management aligned with workplace procedures.
             </p>
           </div>
+        </div>
 
-          <div class="card" id="appendix-links">
-            <h3>Links & Profiles</h3>
-            <div class="tableWrap" style="margin-top:12px;">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Item</th>
-                    <th>Link</th>
-                    <th>Notes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>LinkedIn</strong></td>
-                    <td>
-                                           <a class="linkBtn" target="_blank" rel="noopener"
-                         href="https://www.linkedin.com/in/roel-de-los-reyes-7a76412b6/">
-                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                          <path d="M4 4h16v16H4V4Z" stroke="currentColor" stroke-width="2"/>
-                          <path d="M8 10v7M8 7v.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                          <path d="M12 10v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                          <path d="M12 13.5c0-2 4-2.5 4 .5V17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        Open LinkedIn
-                      </a>
-                    </td>
-                    <td class="muted">Add screenshot in <code>images/app8.jpg</code>.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Jobs180</strong></td>
-                    <td>
-                      <a class="linkBtn" href="#" onclick="return false;" title="Replace with your Jobs180 link">
-                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                          <path d="M10 14a5 5 0 0 1 0-7l1-1a5 5 0 0 1 7 7l-1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                          <path d="M14 10a5 5 0 0 1 0 7l-1 1a5 5 0 0 1-7-7l1-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        Add Jobs180 Link
-                      </a>
-                    </td>
-                    <td class="muted">Replace “#” with your Jobs180 profile URL.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Email</strong></td>
-                    <td>
-                      <a class="linkBtn" href="mailto:youremail@example.com" title="Replace with your email">
-                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                          <path d="M4 6h16v12H4V6Z" stroke="currentColor" stroke-width="2"/>
-                          <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        youremail@example.com
-                      </a>
-                    </td>
-                    <td class="muted">Replace with your real email.</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Phone</strong></td>
-                    <td>
-                      <a class="linkBtn" href="tel:+630000000000" title="Replace with your phone">
-                        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                          <path d="M8 3h8v18H8V3Z" stroke="currentColor" stroke-width="2"/>
-                          <path d="M11 18h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                        +63 000 000 0000
-                      </a>
-                    </td>
-                    <td class="muted">Optional. Replace with your phone number.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+        <h4 id="training-milestones">C. Training / Project Milestones</h4>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:25%;">Milestone</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Orientation</strong></td><td>Familiarization with rules, tools, and assigned responsibilities.</td></tr>
+              <tr><td><strong>Task Assignment</strong></td><td>Receiving tasks and learning proper workflow and documentation.</td></tr>
+              <tr><td><strong>Execution</strong></td><td>Performing support and technical tasks under supervision.</td></tr>
+              <tr><td><strong>Completion</strong></td><td>Submission of outputs and evaluation of performance.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-            <p class="hint">
-              Tip: If you want a “Download Resume” button, export your resume as PDF and place it in your folder,
-              then link it like: <code>href="files/Resume-Roel-DelosReyes.pdf"</code>.
+      <!-- IV. Observations -->
+      <section class="page" id="obs">
+        <h3 class="section-title">IV. Observations</h3>
+
+        <div class="two-col">
+          <div class="box">
+            <h4 id="advantages" style="margin-top:0;">A. Competitive Advantages</h4>
+            <p>
+              The organization demonstrates efficiency through structured workflows, competent staff, and effective use of
+              information systems. Clear coordination and established standards support smooth operations.
+            </p>
+            <ul>
+              <li>Organized processes and clear procedures.</li>
+              <li>Supportive staff and consistent supervision.</li>
+              <li>Effective documentation and use of technology.</li>
+              <li>Professional environment that promotes learning.</li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h4 id="overall" style="margin-top:0;">B. Overall Observation</h4>
+            <p>
+              The practicum environment promotes professionalism, collaboration, and continuous improvement. The experience
+              encouraged responsibility, communication, and adaptability while working on real tasks and deliverables.
             </p>
           </div>
+        </div>
+      </section>
 
-          <!-- ================= UPLOAD / PREVIEW IMAGES ================= -->
-          <div class="card" id="upload">
-            <h3>Upload Images (Preview Only)</h3>
-            <p class="muted">
-              This upload feature lets you preview images on the page (it does not automatically save files into your folder).
-              To permanently add images, copy them into <code>images/</code> in your project.
+      <!-- V. Anecdotal Reports -->
+      <section class="page" id="anecdotal">
+        <h3 class="section-title">V. Anecdotal Reports</h3>
+
+        <h4 id="daily">A. Periodic Reports (Daily)</h4>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:18%;">Date</th>
+                <th style="width:22%;">Task/Activity</th>
+                <th>Details / Output</th>
+                <th style="width:22%;">Skills Applied</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>[Insert Date]</strong></td>
+                <td>Orientation</td>
+                <td>Familiarization with policies, tools, and assigned duties.</td>
+                <td>Communication, professionalism</td>
+              </tr>
+              <tr>
+                <td><strong>[Insert Date]</strong></td>
+                <td>Documentation</td>
+                <td>Prepared/updated reports, forms, or records.</td>
+                <td>Documentation, attention to detail</td>
+              </tr>
+              <tr>
+                <td><strong>[Insert Date]</strong></td>
+                <td>IT Support</td>
+                <td>Assisted users with basic troubleshooting and guidance.</td>
+                <td>Troubleshooting, user support</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 id="weekly">B. Periodic Reports (Weekly)</h4>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:18%;">Week</th>
+                <th>Summary</th>
+                <th style="width:28%;">Key Outputs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Week 1</strong></td><td>Orientation, familiarization, initial documentation tasks.</td><td>Basic reports, task notes</td></tr>
+              <tr><td><strong>Week 2</strong></td><td>Support requests, updating records, routine technical tasks.</td><td>Support logs, updated records</td></tr>
+              <tr><td><strong>Week 3</strong></td><td>More independent tasks and improved task efficiency.</td><td>Completed assigned outputs</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 id="monthly">C. Periodic Reports (Monthly)</h4>
+        <div class="two-col">
+          <div class="box">
+            <h4 style="margin-top:0;">Month 1</h4>
+            <ul>
+              <li>Learned organizational workflow and documentation standards.</li>
+              <li>Improved communication and support handling.</li>
+            </ul>
+          </div>
+          <div class="box">
+            <h4 style="margin-top:0;">Month 2</h4>
+            <ul>
+              <li>Handled tasks with less supervision.</li>
+              <li>Improved time management and output quality.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="two-col" style="margin-top:18px;">
+          <div class="box">
+            <h4 id="tasks" style="margin-top:0;">D. Job Description / Task Assignments</h4>
+            <ul>
+              <li>Provide basic technical support and troubleshooting assistance.</li>
+              <li>Maintain and update documentation, inventories, and reports.</li>
+              <li>Assist with system checks and routine maintenance tasks.</li>
+              <li>Coordinate with staff for task priorities and progress updates.</li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h4 id="problems" style="margin-top:0;">E. Problems Encountered</h4>
+            <ul>
+              <li>[Problem 1] — [Brief solution/approach]</li>
+              <li>[Problem 2] — [Brief solution/approach]</li>
+              <li>[Problem 3] — [Brief solution/approach]</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="two-col" style="margin-top:18px;">
+          <div class="box">
+            <h4 id="practices" style="margin-top:0;">F. Salient Practices</h4>
+            <ul>
+              <li>Consistent documentation and record keeping.</li>
+              <li>Clear communication and teamwork.</li>
+              <li>Following policies for data and system security.</li>
+              <li>Professional support and service orientation.</li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h4 id="relevance" style="margin-top:0;">G. Relevance to the Chosen Training</h4>
+            <p>
+              The practicum aligns with BSIT training by providing exposure to real IT operations such as technical support,
+              documentation, and troubleshooting. It improved readiness for professional IT responsibilities.
             </p>
+          </div>
+        </div>
 
-            <div class="uploadArea" style="margin-top:12px;">
-              <div class="uploadRow">
-                <div class="stack" style="gap:6px;">
-                  <strong>Choose images to preview</strong>
-                  <span class="muted small">Accepted: JPG, PNG, WEBP • Multiple files allowed</span>
-                </div>
+        <div class="box" style="margin-top:18px;">
+          <h4 id="summary" style="margin-top:0;">H. Summary of Gained Experience</h4>
+          <p>
+            The practicum enhanced technical skills, problem-solving ability, communication, and professional work ethics.
+            It provided valuable workplace experience and increased confidence in handling IT-related tasks.
+          </p>
+        </div>
+      </section>
 
-                <input id="imageUploader" type="file" accept="image/*" multiple />
-              </div>
+      <!-- Practicum Images (Separate page + sliding gallery) -->
+      <section class="page" id="practicum-images-page">
+        <h3 class="section-title">Images During Practicum</h3>
 
-              <div class="row" style="margin-top:12px; flex-wrap:wrap;">
-                <button class="btn primary" id="addToGalleryBtn" type="button">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Add to Preview Gallery
-                </button>
-
-                <button class="btn" id="clearPreviewBtn" type="button">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M6 7h12M9 7V5h6v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M8 7l1 14h6l1-14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Clear Preview
-                </button>
-
-                <button class="btn" id="downloadNamesBtn" type="button" title="Download list of filenames you should copy to /images">
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M8 11l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M4 19h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Download Filename Notes
-                </button>
-              </div>
-
-              <div class="hint">
-                <strong>How to use:</strong><br/>
-                1) Click “Choose files” and select your images.<br/>
-                2) Click “Add to Preview Gallery” to display them below.<br/>
-                3) To make them permanent, copy your files into your project’s <code>images/</code> folder and update the <code>src</code> paths in this HTML if needed.
-              </div>
-            </div>
-
-            <div class="card" style="margin-top:14px;">
-              <strong>Preview Gallery</strong>
-              <p class="muted small" style="margin-top:6px;">
-                Uploaded images will appear here. You can use this section to show “Images During Practicum” without changing filenames yet.
-              </p>
-
-              <div class="gallery" id="previewGallery" style="margin-top:12px;">
-                <!-- JS will insert preview items here -->
-              </div>
-
-              <p class="muted small" id="previewEmptyText" style="margin-top:10px;">
-                No preview images yet — upload images above to show them here.
-              </p>
+        <div class="gallery-wrap">
+          <div class="gallery-head">
+            <div class="gallery-title">Practicum Gallery (15 Images)</div>
+            <div class="gallery-controls">
+              <button class="gbtn" type="button" data-scroll-left="#practicumGallery">◀</button>
+              <button class="gbtn" type="button" data-scroll-right="#practicumGallery">▶</button>
             </div>
           </div>
 
-          <!-- ================= FINAL CHECKLIST ================= -->
-          <div class="card">
-            <h3>Final Report Checklist (Quick)</h3>
-            <div class="tableWrap" style="margin-top:12px;">
-              <table>
-                <thead>
-                  <tr>
-                    <th style="width:32%;">Item</th>
-                    <th>What to Add / Verify</th>
-                    <th style="width:18%;">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Daily / Weekly / Monthly Logs</strong></td>
-                    <td>Fill in real dates, tasks, outputs, and reflections.</td>
-                    <td><span class="badge">To update</span></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Org Chart</strong></td>
-                    <td>Replace <code>images/orgchart.jpg</code> with your official org chart image.</td>
-                    <td><span class="badge">To update</span></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Vicinity Map</strong></td>
-                    <td>Add map screenshot as <code>images/vicinity-map.jpg</code> (or edit path).</td>
-                    <td><span class="badge">Optional</span></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Appendix Images</strong></td>
-                    <td>Scan and save in <code>images/app1.jpg</code> to <code>images/app9.jpg</code>.</td>
-                    <td><span class="badge">To update</span></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Profile Links</strong></td>
-                    <td>Update Jobs180, email, and phone (optional) links.</td>
-                    <td><span class="badge">To update</span></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Proofread</strong></td>
-                    <td>Check grammar, spacing, and completeness.</td>
-                    <td><span class="badge">To do</span></td>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="gallery" id="practicumGallery">
+            <!-- Rename these to match your actual filenames -->
+            <div class="gitem" data-pop="images/prac01.jpg" data-cap="Practicum Image 1"><img src="images/prac01.jpg" alt="Practicum Image 1"><div class="gcap">Practicum Image 1</div></div>
+            <div class="gitem" data-pop="images/prac02.jpg" data-cap="Practicum Image 2"><img src="images/prac02.jpg" alt="Practicum Image 2"><div class="gcap">Practicum Image 2</div></div>
+            <div class="gitem" data-pop="images/prac03.jpg" data-cap="Practicum Image 3"><img src="images/prac03.jpg" alt="Practicum Image 3"><div class="gcap">Practicum Image 3</div></div>
+            <div class="gitem" data-pop="images/prac04.jpg" data-cap="Practicum Image 4"><img src="images/prac04.jpg" alt="Practicum Image 4"><div class="gcap">Practicum Image 4</div></div>
+            <div class="gitem" data-pop="images/prac05.jpg" data-cap="Practicum Image 5"><img src="images/prac05.jpg" alt="Practicum Image 5"><div class="gcap">Practicum Image 5</div></div>
+            <div class="gitem" data-pop="images/prac06.jpg" data-cap="Practicum Image 6"><img src="images/prac06.jpg" alt="Practicum Image 6"><div class="gcap">Practicum Image 6</div></div>
+            <div class="gitem" data-pop="images/prac07.jpg" data-cap="Practicum Image 7"><img src="images/prac07.jpg" alt="Practicum Image 7"><div class="gcap">Practicum Image 7</div></div>
+            <div class="gitem" data-pop="images/prac08.jpg" data-cap="Practicum Image 8"><img src="images/prac08.jpg" alt="Practicum Image 8"><div class="gcap">Practicum Image 8</div></div>
+            <div class="gitem" data-pop="images/prac09.jpg" data-cap="Practicum Image 9"><img src="images/prac09.jpg" alt="Practicum Image 9"><div class="gcap">Practicum Image 9</div></div>
+            <div class="gitem" data-pop="images/prac10.jpg" data-cap="Practicum Image 10"><img src="images/prac10.jpg" alt="Practicum Image 10"><div class="gcap">Practicum Image 10</div></div>
+            <div class="gitem" data-pop="images/prac11.jpg" data-cap="Practicum Image 11"><img src="images/prac11.jpg" alt="Practicum Image 11"><div class="gcap">Practicum Image 11</div></div>
+            <div class="gitem" data-pop="images/prac12.jpg" data-cap="Practicum Image 12"><img src="images/prac12.jpg" alt="Practicum Image 12"><div class="gcap">Practicum Image 12</div></div>
+            <div class="gitem" data-pop="images/prac13.jpg" data-cap="Practicum Image 13"><img src="images/prac13.jpg" alt="Practicum Image 13"><div class="gcap">Practicum Image 13</div></div>
+            <div class="gitem" data-pop="images/prac14.jpg" data-cap="Practicum Image 14"><img src="images/prac14.jpg" alt="Practicum Image 14"><div class="gcap">Practicum Image 14</div></div>
+            <div class="gitem" data-pop="images/prac15.jpg" data-cap="Practicum Image 15"><img src="images/prac15.jpg" alt="Practicum Image 15"><div class="gcap">Practicum Image 15</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VI. Appendices -->
+      <section class="page" id="appendices">
+        <h3 class="section-title">VI. Appendices</h3>
+
+        <!-- Performance Evaluation (4 pages) -->
+        <h4 id="evaluation-pages">Performance Evaluation Report</h4>
+        <div class="gallery-wrap">
+          <div class="gallery-head">
+            <div class="gallery-title">Evaluation (4 Pages)</div>
+            <div class="gallery-controls">
+              <button class="gbtn" type="button" data-scroll-left="#evalGallery">◀</button>
+              <button class="gbtn" type="button" data-scroll-right="#evalGallery">▶</button>
             </div>
           </div>
-        </section>
 
-        <!-- FOOTER -->
-        <footer>
-          <div>© 2025 — Roel S. Delos Reyes</div>
-          <div class="muted">Single-file portfolio • Sidebar menu • Upload preview • Print to PDF</div>
-        </footer>
-      </div>
+          <div class="gallery" id="evalGallery">
+            <!-- Rename these to match your actual evaluation page filenames -->
+            <div class="gitem" data-pop="images/eval1.jpg" data-cap="Evaluation Page 1"><img src="images/eval1.jpg" alt="Evaluation Page 1"><div class="gcap">Evaluation Page 1</div></div>
+            <div class="gitem" data-pop="images/eval2.jpg" data-cap="Evaluation Page 2"><img src="images/eval2.jpg" alt="Evaluation Page 2"><div class="gcap">Evaluation Page 2</div></div>
+            <div class="gitem" data-pop="images/eval3.jpg" data-cap="Evaluation Page 3"><img src="images/eval3.jpg" alt="Evaluation Page 3"><div class="gcap">Evaluation Page 3</div></div>
+            <div class="gitem" data-pop="images/eval4.jpg" data-cap="Evaluation Page 4"><img src="images/eval4.jpg" alt="Evaluation Page 4"><div class="gcap">Evaluation Page 4</div></div>
+          </div>
+        </div>
 
-      <!-- Back to top -->
-      <a class="btn toTop" id="toTopBtn" href="#cover" aria-label="Back to top">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M12 19V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          <path d="M7 10l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        Top
-      </a>
+        <h4 id="appendix-gallery">Appendix Gallery</h4>
+        <div class="img-grid">
+          <div class="img-card" data-pop="images/app1.jpg" data-cap="Practicum Recommendation Letter">
+            <img src="images/app1.jpg" alt="Recommendation Letter"><div class="cap">Practicum Recommendation Letter</div>
+          </div>
+          <div class="img-card" data-pop="images/app2.jpg" data-cap="Certificate of Completion">
+            <img src="images/app2.jpg" alt="Certificate of Completion"><div class="cap">Certificate of Completion</div>
+          </div>
+          <div class="img-card" data-pop="images/app4.jpg" data-cap="Attendance Reports (DTR)">
+            <img src="images/app4.jpg" alt="Attendance Reports (DTR)"><div class="cap">Attendance Reports (DTR)</div>
+          </div>
+          <div class="img-card" data-pop="images/app6.jpg" data-cap="Updated Resume">
+            <img src="images/app6.jpg" alt="Updated Resume"><div class="cap">Updated Resume</div>
+          </div>
+          <div class="img-card" data-pop="images/app7.jpg" data-cap="Jobs180 Profile">
+            <img src="images/app7.jpg" alt="Jobs180 Profile"><div class="cap">Jobs180 Profile</div>
+          </div>
+          <div class="img-card" data-pop="images/app8.jpg" data-cap="LinkedIn Profile">
+            <img src="images/app8.jpg" alt="LinkedIn Profile"><div class="cap">LinkedIn Profile</div>
+          </div>
+        </div>
+
+        <h4 id="links" style="margin-top:22px;">Links</h4>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:26%;">Profile</th>
+                <th>Link</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>LinkedIn</strong></td>
+                <td>
+                  <a href="https://www.linkedin.com/in/roel-de-los-reyes-7a76412b6/" target="_blank" rel="noopener">
+                    https://www.linkedin.com/in/roel-de-los-reyes-7a76412b6/
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Jobs180</strong></td>
+                <td><a href="#" onclick="return false;">[Insert Jobs180 Profile Link]</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="footer">© 2025 — Roel S. Delos Reyes</div>
     </main>
   </div>
 
+  <!-- Image Modal -->
+  <div class="modal" id="imgModal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-label="Image preview">
+      <div class="modal-bar">
+        <div class="modal-title" id="modalTitle">Preview</div>
+        <div class="modal-actions">
+          <button class="iconbtn" type="button" id="prevBtn" title="Previous">◀</button>
+          <button class="iconbtn" type="button" id="nextBtn" title="Next">▶</button>
+          <button class="iconbtn" type="button" id="closeBtn" title="Close">✕</button>
+        </div>
+      </div>
+      <img class="modal-img" id="modalImg" src="" alt="Preview">
+    </div>
+  </div>
+
   <script>
-    /* =========================================================
-      JS Features:
-      - Sidebar open/close (mobile)
-      - Scroll progress bar
-      - Active section title in topbar
-      - Search in sidebar (highlights + filters links)
-      - Copy link to current section
-      - Theme toggle (saved in localStorage)
-      - Upload images preview gallery
-    ========================================================= */
+    // Theme (minimal)
+    const darkBtn = document.getElementById("darkBtn");
+    const lightBtn = document.getElementById("lightBtn");
 
-    // ---------- Helpers ----------
-    const $ = (sel, root=document) => root.querySelector(sel);
-    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-
-    // ---------- Mobile sidebar ----------
-    const openSidebarBtn = $("#openSidebarBtn");
-    const closeSidebarBtn = $("#closeSidebarBtn");
-    const backdrop = $("#backdrop");
-    const bodyEl = document.body;
-
-    function openSidebar(){
-      bodyEl.classList.add("sidebar-open");
+    function setTheme(mode){
+      if(mode === "light") document.body.classList.add("theme-light");
+      else document.body.classList.remove("theme-light");
+      localStorage.setItem("portfolioTheme", mode);
     }
-    function closeSidebar(){
-      bodyEl.classList.remove("sidebar-open");
+    darkBtn.addEventListener("click", () => setTheme("dark"));
+    lightBtn.addEventListener("click", () => setTheme("light"));
+    const saved = localStorage.getItem("portfolioTheme");
+    if(saved) setTheme(saved);
+
+    // Sliding galleries (arrow buttons)
+    function scrollGallery(el, dir){
+      const amount = Math.max(260, Math.round(el.clientWidth * 0.85));
+      el.scrollBy({ left: dir * amount, behavior: "smooth" });
     }
 
-    if(openSidebarBtn) openSidebarBtn.addEventListener("click", openSidebar);
-    if(closeSidebarBtn) closeSidebarBtn.addEventListener("click", closeSidebar);
-    if(backdrop) backdrop.addEventListener("click", closeSidebar);
-
-    // Close sidebar on link click (mobile)
-    $$(".menuLinks a").forEach(a=>{
-      a.addEventListener("click", ()=>{
-        if(window.innerWidth <= 900) closeSidebar();
+    document.querySelectorAll("[data-scroll-left]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const sel = btn.getAttribute("data-scroll-left");
+        const el = document.querySelector(sel);
+        if(el) scrollGallery(el, -1);
+      });
+    });
+    document.querySelectorAll("[data-scroll-right]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const sel = btn.getAttribute("data-scroll-right");
+        const el = document.querySelector(sel);
+        if(el) scrollGallery(el, 1);
       });
     });
 
-    // ---------- Print ----------
-    const printBtn = $("#printBtn");
-    if(printBtn) printBtn.addEventListener("click", ()=> window.print());
+    // Modal popup with next/prev
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImg");
+    const modalTitle = document.getElementById("modalTitle");
+    const closeBtn = document.getElementById("closeBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
 
-    // ---------- Theme toggle ----------
-    const themeBtn = $("#themeBtn");
-    function applyTheme(theme){
-      document.body.setAttribute("data-theme", theme);
-      localStorage.setItem("theme", theme);
-    }
-    const savedTheme = localStorage.getItem("theme");
-    if(savedTheme) applyTheme(savedTheme);
+    // Collect all clickable images in the document (img-card and gitem)
+    const clickable = Array.from(document.querySelectorAll("[data-pop]"));
+    let currentIndex = -1;
 
-    if(themeBtn){
-      themeBtn.addEventListener("click", ()=>{
-        const current = document.body.getAttribute("data-theme") || "dark";
-        applyTheme(current === "dark" ? "light" : "dark");
-      });
-    }
-
-    // ---------- Scroll progress bar + Back to top ----------
-    const progressBar = $("#progressBar");
-    const toTopBtn = $("#toTopBtn");
-
-    function updateProgress(){
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      if(progressBar) progressBar.style.width = pct + "%";
-
-      if(toTopBtn){
-        if(scrollTop > 450) toTopBtn.classList.add("show");
-        else toTopBtn.classList.remove("show");
-      }
-    }
-    window.addEventListener("scroll", updateProgress, {passive:true});
-    updateProgress();
-
-    // ---------- Active section detection ----------
-    const activeTitle = $("#activeTitle");
-    const activeSubtitle = $("#activeSubtitle");
-
-    const sections = $$("section.section");
-    const observer = new IntersectionObserver((entries)=>{
-      // pick the entry with highest intersection ratio that is intersecting
-      const visible = entries
-        .filter(e=>e.isIntersecting)
-        .sort((a,b)=>b.intersectionRatio - a.intersectionRatio)[0];
-
-      if(visible){
-        const t = visible.target.getAttribute("data-title") || "Section";
-        const s = visible.target.getAttribute("data-subtitle") || "";
-        if(activeTitle) activeTitle.textContent = t;
-        if(activeSubtitle) activeSubtitle.textContent = s;
-      }
-    }, { root:null, threshold:[0.15, 0.25, 0.4, 0.6] });
-
-    sections.forEach(sec => observer.observe(sec));
-
-    // ---------- Copy link to current section ----------
-    const copyLinkBtn = $("#copyLinkBtn");
-    if(copyLinkBtn){
-      copyLinkBtn.addEventListener("click", async ()=>{
-        try{
-          // find nearest visible section (top-ish)
-          let best = sections[0];
-          let bestTop = Infinity;
-          const y = window.scrollY;
-          sections.forEach(sec=>{
-            const rect = sec.getBoundingClientRect();
-            const top = Math.abs(rect.top);
-            if(rect.top < window.innerHeight * 0.45 && top < bestTop){
-              bestTop = top;
-              best = sec;
-            }
-          });
-          const id = best.id ? "#" + best.id : "";
-          const url = window.location.origin + window.location.pathname + id;
-          await navigator.clipboard.writeText(url);
-          copyLinkBtn.textContent = "Copied!";
-          setTimeout(()=> copyLinkBtn.textContent = "Copy Link", 1200);
-        }catch(err){
-          alert("Copy failed. You can manually copy the page URL.");
-        }
-      });
+    function openModal(index){
+      currentIndex = index;
+      const item = clickable[currentIndex];
+      const src = item.getAttribute("data-pop");
+      const cap = item.getAttribute("data-cap") || "Preview";
+      modalImg.src = src;
+      modalTitle.textContent = cap;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden","false");
     }
 
-    // ---------- Scroll next (cover -> intro) ----------
-    const scrollNextBtn = $("#scrollNextBtn");
-    if(scrollNextBtn){
-      scrollNextBtn.addEventListener("click", ()=>{
-        const intro = $("#intro");
-        if(intro) intro.scrollIntoView({behavior:"smooth", block:"start"});
-      });
+    function closeModal(){
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden","true");
+      modalImg.src = "";
+      currentIndex = -1;
     }
 
-    // ---------- Sidebar search ----------
-    const searchInput = $("#searchInput");
-    const tocLinks = $$(".menuLinks a");
-    const menus = $$("details.menu");
-
-    function normalize(s){
-      return (s || "").toLowerCase().trim();
+    function showNext(delta){
+      if(currentIndex < 0) return;
+      const next = (currentIndex + delta + clickable.length) % clickable.length;
+      openModal(next);
     }
 
-    function searchToc(q){
-      const query = normalize(q);
-      if(!query){
-        tocLinks.forEach(a=>{
-          a.style.display = "";
-          a.style.opacity = "";
-          a.style.borderColor = "transparent";
-        });
-        menus.forEach(d=> d.open = true);
-        return;
-      }
+    clickable.forEach((el, idx)=>{
+      el.addEventListener("click", ()=> openModal(idx));
+    });
 
-      // open all menus for visibility
-      menus.forEach(d=> d.open = true);
+    closeBtn.addEventListener("click", closeModal);
+    prevBtn.addEventListener("click", ()=> showNext(-1));
+    nextBtn.addEventListener("click", ()=> showNext(1));
 
-      tocLinks.forEach(a=>{
-        const text = normalize(a.textContent);
-        const href = a.getAttribute("href") || "";
-        const match = text.includes(query) || normalize(href).includes(query);
+    // Close when clicking outside the dialog box
+    modal.addEventListener("click", (e)=>{
+      if(e.target === modal) closeModal();
+    });
 
-        a.style.display = match ? "" : "none";
-        if(match){
-          a.style.opacity = "1";
-          a.style.borderColor = "rgba(90,162,255,.22)";
-        }else{
-          a.style.borderColor = "transparent";
-        }
-      });
-    }
-
-    if(searchInput){
-      searchInput.addEventListener("input", (e)=> searchToc(e.target.value));
-    }
-
-    // ---------- Upload preview gallery ----------
-    const uploader = $("#imageUploader");
-    const addToGalleryBtn = $("#addToGalleryBtn");
-    const clearPreviewBtn = $("#clearPreviewBtn");
-    const downloadNamesBtn = $("#downloadNamesBtn");
-    const previewGallery = $("#previewGallery");
-    const previewEmptyText = $("#previewEmptyText");
-
-    let stagedFiles = [];
-    let previewItems = [];
-
-    function renderPreview(){
-      if(!previewGallery) return;
-      previewGallery.innerHTML = "";
-
-      if(previewItems.length === 0){
-        if(previewEmptyText) previewEmptyText.style.display = "block";
-        return;
-      }
-      if(previewEmptyText) previewEmptyText.style.display = "none";
-
-      previewItems.forEach((item, idx)=>{
-        const card = document.createElement("div");
-        card.className = "imgCard";
-
-        const img = document.createElement("img");
-        img.src = item.url;
-        img.alt = item.name || ("Uploaded image " + (idx+1));
-
-        const cap = document.createElement("div");
-        cap.className = "cap";
-
-        const left = document.createElement("span");
-        left.textContent = item.name || "Uploaded image";
-
-        const right = document.createElement("span");
-        right.className = "badge";
-        right.textContent = (item.sizeKB ? item.sizeKB + " KB" : "Preview");
-
-        cap.appendChild(left);
-        cap.appendChild(right);
-
-        card.appendChild(img);
-        card.appendChild(cap);
-
-        previewGallery.appendChild(card);
-      });
-    }
-
-    function bytesToKB(bytes){
-      return Math.max(1, Math.round(bytes / 1024));
-    }
-
-    if(uploader){
-      uploader.addEventListener("change", ()=>{
-        stagedFiles = Array.from(uploader.files || []);
-      });
-    }
-
-    if(addToGalleryBtn){
-      addToGalleryBtn.addEventListener("click", ()=>{
-        if(!stagedFiles.length){
-          alert("Please choose images first.");
-          return;
-        }
-
-        // Create preview items
-        stagedFiles.forEach(file=>{
-          const url = URL.createObjectURL(file);
-          previewItems.push({
-            name: file.name,
-            url,
-            sizeKB: bytesToKB(file.size)
-          });
-        });
-
-        // reset staging
-        stagedFiles = [];
-        uploader.value = "";
-        renderPreview();
-      });
-    }
-
-    if(clearPreviewBtn){
-      clearPreviewBtn.addEventListener("click", ()=>{
-        // revoke object URLs
-        previewItems.forEach(p=>{
-          try{ URL.revokeObjectURL(p.url); }catch(e){}
-        });
-        previewItems = [];
-        renderPreview();
-      });
-    }
-
-    if(downloadNamesBtn){
-      downloadNamesBtn.addEventListener("click", ()=>{
-        if(previewItems.length === 0){
-          alert("No preview images yet. Upload images first.");
-          return;
-        }
-
-        const lines = [
-          "Practicum Portfolio - Uploaded Preview Filenames",
-          "------------------------------------------------",
-          "These files are currently previewed in the browser.",
-          "To permanently use them, copy your actual images into your project's /images folder.",
-          "",
-          "Uploaded file names:"
-        ];
-
-        previewItems.forEach((p, i)=>{
-          lines.push(`${i+1}. ${p.name}`);
-        });
-
-        lines.push("");
-        lines.push("Suggested next step:");
-        lines.push("- Copy these images into: /images/");
-        lines.push("- Then replace the <img src='...'> paths in the Organization Images / Appendices sections if needed.");
-
-        const blob = new Blob([lines.join("\n")], {type:"text/plain"});
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = "uploaded-image-filenames.txt";
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(()=>{
-          URL.revokeObjectURL(a.href);
-          a.remove();
-        }, 300);
-      });
-    }
-
-    // initial preview render
-    renderPreview();
+    // Keyboard controls
+    document.addEventListener("keydown", (e)=>{
+      if(!modal.classList.contains("open")) return;
+      if(e.key === "Escape") closeModal();
+      if(e.key === "ArrowLeft") showNext(-1);
+      if(e.key === "ArrowRight") showNext(1);
+    });
   </script>
 </body>
 </html>
-
